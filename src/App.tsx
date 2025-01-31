@@ -1,12 +1,8 @@
-import './App.css'
+import "./App.css";
+import Main from "./features/main/Main.tsx";
 
-const App = ()=> {
+const App = () => {
+  return <Main />;
+};
 
-  return (
-    <>
-
-    </>
-  )
-}
-
-export default App
+export default App;
