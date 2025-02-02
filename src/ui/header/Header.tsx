@@ -16,15 +16,17 @@ export const StyledLink = styled(Link)({
   position: "relative",
   color: "white",
   textDecoration: "none",
+  textTransform: "uppercase",
+  fontSize: "14px",
   cursor: "pointer",
-  padding: "16px",
+  padding: "15px 16px",
   fontWeight: "600",
   "&::after": {
     content: '""',
     position: "absolute",
     height: "1px",
     width: "85%",
-    backgroundColor: "rgb(255, 255, 255)",
+    backgroundColor: "rgba(255, 255, 255, 1)",
     transform: "scaleX(0)",
     transition: "transform 0.1s ease-in",
     left: "6%",
@@ -69,8 +71,20 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position="sticky" color="inherit" sx={{ boxShadow: "none" }}>
-        <Toolbar>
+      <AppBar
+        position="sticky"
+        color="inherit"
+        sx={{ boxShadow: "none", backgroundColor: "inherit" }}
+      >
+        <Toolbar
+          sx={{
+            backgroundColor: "inherit",
+            height: "60px",
+            "@media (min-width: 600px)": {
+              minHeight: "auto",
+            },
+          }}
+        >
           <Container
             maxWidth={false}
             disableGutters
@@ -86,7 +100,10 @@ const Header = () => {
                 alignItems: "center",
               }}
             >
-              <Link sx={{ width: "125px", display: "block" }} href="/">
+              <Link
+                sx={{ width: "125px", display: "block", height: "43px" }}
+                href="/"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="100%"
@@ -122,10 +139,11 @@ const Header = () => {
                   sx={{
                     borderRadius: "9999px",
                     py: 1,
+                    height: "42px",
                     px: 2,
                     border: "1px solid #fff",
                     boxShadow: "none",
-                    backgroundColor: "inherit",
+                    backgroundColor: "rgba(0, 0, 0, 0.1)",
                     "&:hover": {
                       boxShadow: "none",
                       backgroundColor: "inherit",
@@ -138,7 +156,6 @@ const Header = () => {
                       fontSize: "14px",
                       fontWeight: "600",
                       fontFamily: "Poppins",
-                      py: 0.5,
                       pr: 0.5,
                     }}
                   >
@@ -186,7 +203,9 @@ const Header = () => {
                     backgroundColor: "rgba(255, 255, 255, 0.9)",
                     fontSize: "14px",
                     fontWeight: "600",
-                    color: "#000",
+                    color: "#262626",
+                    height: "42px",
+                    border: "0.8px solid rgba(229, 231, 235, 1)",
                     boxShadow: "none",
                     "&:hover": {
                       backgroundColor: "rgba(255, 255, 255, 1)",
