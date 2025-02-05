@@ -11,6 +11,7 @@ import {
 import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import * as React from "react";
 
 export const StyledLink = styled(Link)({
   position: "relative",
@@ -37,7 +38,7 @@ export const StyledLink = styled(Link)({
   },
 });
 
-export const StyledButton = styled(Button)({
+export const LanguageButton = styled(Button)({
   color: "#000",
   cursor: "pointer",
   padding: "12px 20px",
@@ -55,26 +56,72 @@ export const StyledButton = styled(Button)({
   },
 });
 
-const Header = () => {
+export const WhiteButton = styled(Button)({
+  borderRadius: "9999px",
+  padding: "12px 28px",
+  fontFamily: "Poppins",
+  backgroundColor: "rgba(255, 255, 255, 0.9)",
+  fontSize: "14px",
+  fontWeight: "600",
+  color: "#262626",
+  height: "42px",
+  border: "0.8px solid rgba(229, 231, 235, 1)",
+  boxShadow: "none",
+  "&:hover": {
+    backgroundColor: "rgba(255, 255, 255, 1)",
+    boxShadow: "none",
+  },
+});
+
+interface Props {
+  language: string;
+  setLanguage: (lang: string) => void;
+}
+
+const Header: React.FC<Props> = ({ language, setLanguage }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [section2, setSection2] = useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (language?: string) => {
+    if (language) {
+      setLanguage(language);
+    }
     setAnchorEl(null);
   };
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    if (scrollTop >= 300) {
+      setSection2(true);
+    }
+
+    if (scrollTop < 300) {
+      setSection2(false);
+    }
+  });
+
   return (
     <>
       <AppBar
-        position="sticky"
+        position="fixed"
         color="inherit"
-        sx={{ boxShadow: "none", backgroundColor: "inherit" }}
+        sx={{
+          boxShadow: "none",
+          backgroundColor: "inherit",
+          backdropFilter: section2 ? "blur(8px)" : "none",
+          transition: "backdrop-filter 0.5s",
+          "@media (max-width: 1024px)": {
+            backgroundColor: "#0000004d",
+          },
+        }}
       >
         <Toolbar
           sx={{
@@ -123,9 +170,24 @@ const Header = () => {
                   alignItems: "center",
                 }}
               >
-                <StyledLink>Segments</StyledLink>
-                <StyledLink>Map</StyledLink>
-                <StyledLink>Technology</StyledLink>
+                <StyledLink>
+                  {language === "eng" && "Segments"}
+                  {language === "pl" && "Segmenty"}
+                  {language === "esp" && "Segmentos"}
+                  {language === "pt" && "Segmentos"}
+                </StyledLink>
+                <StyledLink>
+                  {language === "eng" && "Map"}
+                  {language === "pl" && "Mapa"}
+                  {language === "esp" && "Mapa"}
+                  {language === "pt" && "Mapa"}
+                </StyledLink>
+                <StyledLink>
+                  {language === "eng" && "Technology"}
+                  {language === "pl" && "Technologia"}
+                  {language === "esp" && "Tecnología"}
+                  {language === "pt" && "Tecnologia"}
+                </StyledLink>
               </Grid>
               <Grid
                 sx={{
@@ -159,7 +221,10 @@ const Header = () => {
                       pr: 0.5,
                     }}
                   >
-                    Eng
+                    {language === "eng" && "eng"}
+                    {language === "pl" && "pl"}
+                    {language === "esp" && "esp"}
+                    {language === "pt" && "pt"}
                   </Typography>
                   <KeyboardArrowDownIcon
                     sx={{
@@ -173,7 +238,7 @@ const Header = () => {
                   id={id}
                   open={open}
                   anchorEl={anchorEl}
-                  onClose={handleClose}
+                  onClose={() => handleClose()}
                   sx={{
                     mt: 1,
                     "& .MuiPaper-root": {
@@ -189,32 +254,33 @@ const Header = () => {
                     horizontal: "left",
                   }}
                 >
-                  <StyledButton>English</StyledButton>
-                  <StyledButton>Polski</StyledButton>
-                  <StyledButton>Español</StyledButton>
-                  <StyledButton>Português</StyledButton>
+                  <LanguageButton onClick={() => handleClose("eng")}>
+                    English
+                  </LanguageButton>
+                  <LanguageButton onClick={() => handleClose("pl")}>
+                    Polski
+                  </LanguageButton>
+                  <LanguageButton onClick={() => handleClose("esp")}>
+                    Español
+                  </LanguageButton>
+                  <LanguageButton onClick={() => handleClose("pt")}>
+                    Português
+                  </LanguageButton>
                 </Popover>
-                <Button
+                <WhiteButton
                   variant="contained"
-                  sx={{
-                    borderRadius: "9999px",
-                    p: "12px 28px",
-                    fontFamily: "Poppins",
-                    backgroundColor: "rgba(255, 255, 255, 0.9)",
-                    fontSize: "14px",
-                    fontWeight: "600",
-                    color: "#262626",
-                    height: "42px",
-                    border: "0.8px solid rgba(229, 231, 235, 1)",
-                    boxShadow: "none",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 1)",
-                      boxShadow: "none",
-                    },
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 500,
+                      behavior: "smooth",
+                    });
                   }}
                 >
-                  Contact us
-                </Button>
+                  {language === "eng" && "Contact us"}
+                  {language === "pl" && "Kontakt"}
+                  {language === "esp" && "Pedir cita"}
+                  {language === "pt" && "Agendar uma chamada"}
+                </WhiteButton>
               </Grid>
             </Grid>
           </Container>
