@@ -3,9 +3,17 @@ import video1 from "../../assets/Malinowskiego_Hero_1-1.mp4";
 import video2 from "../../assets/Malinowskiego_Hero_1-2.mp4";
 import video3 from "../../assets/Malinowskiego_Hero_4-2.mp4";
 import video4 from "../../assets/Malinowskiego_Hero_2-1.mp4";
+import houseBase from "../../assets/houseBase.png";
+import houseA from "../../assets/houseA.svg";
+import houseB from "../../assets/houseB.svg";
+import houseC from "../../assets/houseC.svg";
+import houseD from "../../assets/houseD.svg";
+import houseE from "../../assets/houseE.svg";
+import houseF from "../../assets/houseF.svg";
 import { useEffect, useRef, useState } from "react";
 import { Container, styled, Typography } from "@mui/material";
 import { WhiteButton } from "../../ui/header/Header.tsx";
+import HouseCard from "./components/HouseCard.tsx";
 
 export const TitleLocation = styled(Typography)({
   color: "#fff",
@@ -29,6 +37,19 @@ export const TextLocation = styled(Typography)({
   },
 });
 
+export const HouseIllustration = styled(Grid)({
+  cursor: "pointer",
+  backgroundColor: "rgba(185, 28, 28, 1)",
+  opacity: 0,
+  transitionProperty:
+    "color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter",
+  transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+  transitionDuration: "150ms",
+  "&:hover": {
+    opacity: 1,
+  },
+});
+
 interface Props {
   language: string;
 }
@@ -46,24 +67,6 @@ const Main: React.FC<Props> = ({ language }) => {
     disablePictureInPicture: true,
     playsInline: true,
   };
-
-  // useEffect(() => {
-  //     const handleScroll = () => {
-  //         const scrollTop = window.scrollY || document.documentElement.scrollTop;
-  //
-  //         if (scrollTop < 300 && video === video3) {
-  //             setVideo(video4);
-  //         } else if (scrollTop >= 300 && video !== video3 ) {
-  //             setVideo(video2);
-  //         }
-  //     };
-  //
-  //     window.addEventListener("scroll", handleScroll);
-  //
-  //     return () => {
-  //         window.removeEventListener("scroll", handleScroll);
-  //     };
-  // }, [video]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -212,7 +215,7 @@ const Main: React.FC<Props> = ({ language }) => {
           }}
         >
           <Typography
-            variant="h1"
+            variant="h3"
             sx={{
               fontSize: "48px",
               fontWeight: "600",
@@ -419,6 +422,284 @@ const Main: React.FC<Props> = ({ language }) => {
                 {language === "esp" && "a bosques"}
                 {language === "pt" && "para florestas"}
               </TextLocation>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid
+          id="section2"
+          sx={{
+            padding: "90px 0 40px",
+          }}
+        >
+          <Typography
+            variant="h3"
+            sx={{
+              fontSize: "48px",
+              fontWeight: "600",
+              color: "white",
+              fontFamily: "Poppins",
+              marginBottom: "24px",
+
+              "@media (min-width: 1024px)": {
+                fontSize: "64px",
+              },
+            }}
+          >
+            {language === "eng" && "Select your house"}
+            {language === "pl" && "Wybierz swój dom"}
+            {language === "esp" && "Selecciona tu casa"}
+            {language === "pt" && "Selecione sua casa"}
+          </Typography>
+          <Grid
+            sx={{
+              display: "flex",
+              gap: "10px",
+            }}
+          >
+            <Grid
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+              }}
+            >
+              <HouseCard
+                houseNumber="38a"
+                house="147"
+                plot="900"
+                price="360.000"
+                sold={true}
+                language={language}
+              ></HouseCard>
+              <HouseCard
+                houseNumber="38b"
+                house="168.8"
+                plot="890"
+                price="360.000"
+                sold={true}
+                language={language}
+              ></HouseCard>
+              <HouseCard
+                houseNumber="38c"
+                house="147"
+                plot="900"
+                price="360.000"
+                sold={false}
+                language={language}
+              ></HouseCard>
+              <HouseCard
+                houseNumber="38d"
+                house="147"
+                plot="900"
+                price="360.000"
+                sold={false}
+                language={language}
+              ></HouseCard>
+              <HouseCard
+                houseNumber="38e"
+                house="147"
+                plot="900"
+                price="360.000"
+                sold={false}
+                language={language}
+              ></HouseCard>
+              <HouseCard
+                houseNumber="38f"
+                house="147"
+                plot="900"
+                price="360.000"
+                sold={false}
+                language={language}
+              ></HouseCard>
+            </Grid>
+            <Grid
+              sx={{
+                width: "110px",
+                p: "8px 0",
+                borderRadius: "8px",
+                background: "rgba(0, 0, 0, 0.3)",
+                border: "0.5px solid #404040",
+              }}
+            >
+              <Grid
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  position: "relative",
+                }}
+              >
+                <img
+                  src={houseBase}
+                  alt="house base"
+                  style={{
+                    position: "absolute",
+                    display: "block",
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+                <HouseIllustration>
+                  <img
+                    src={houseA}
+                    alt=""
+                    style={{
+                      display: "block",
+                      position: "absolute",
+                      right: "0px",
+                      top: "5px",
+                      height: "93px",
+                      width: "93px",
+                    }}
+                  />
+                  <Grid
+                    sx={{
+                      position: "absolute",
+                      top: "10px",
+                      right: "0.375rem",
+                      display: "flex",
+                      height: "83px",
+                      width: "93px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 31 30"
+                      width="48"
+                      height="48"
+                    >
+                      <rect
+                        width="30"
+                        height="30"
+                        x="0.5"
+                        fill="#333"
+                        fillOpacity="0.3"
+                        rx="15"
+                      ></rect>
+                      <g
+                        stroke="#EAEAEA"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        opacity="0.7"
+                      >
+                        <path d="M19 14.5h-7a1 1 0 0 0-1 1V19a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1ZM13 14.5v-2a2.5 2.5 0 0 1 5 0v2"></path>
+                      </g>
+                    </svg>
+                  </Grid>
+                </HouseIllustration>
+                <HouseIllustration>
+                  <img
+                    src={houseB}
+                    alt=""
+                    style={{
+                      display: "block",
+                      position: "absolute",
+                      right: "0px",
+                      top: "100px",
+                      height: "90px",
+                      width: "93px",
+                    }}
+                  />
+                  <Grid
+                    sx={{
+                      position: "absolute",
+                      top: "93px",
+                      right: "0.375rem",
+                      display: "flex",
+                      height: "83px",
+                      width: "93px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 31 30"
+                      width="48"
+                      height="48"
+                    >
+                      <rect
+                        width="30"
+                        height="30"
+                        x="0.5"
+                        fill="#333"
+                        fillOpacity="0.3"
+                        rx="15"
+                      ></rect>
+                      <g
+                        stroke="#EAEAEA"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        opacity="0.7"
+                      >
+                        <path d="M19 14.5h-7a1 1 0 0 0-1 1V19a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1ZM13 14.5v-2a2.5 2.5 0 0 1 5 0v2"></path>
+                      </g>
+                    </svg>
+                  </Grid>
+                </HouseIllustration>
+                <HouseIllustration>
+                  <img
+                    src={houseC}
+                    alt=""
+                    style={{
+                      display: "block",
+                      position: "absolute",
+                      right: "0px",
+                      top: "175px",
+                      height: "90px",
+                      width: "93px",
+                    }}
+                  />
+                </HouseIllustration>
+                <HouseIllustration>
+                  <img
+                    src={houseD}
+                    alt=""
+                    style={{
+                      display: "block",
+                      position: "absolute",
+                      right: "0px",
+                      top: "240px",
+                      height: "90px",
+                      width: "93px",
+                    }}
+                  />
+                </HouseIllustration>
+                <HouseIllustration>
+                  <img
+                    src={houseE}
+                    alt=""
+                    style={{
+                      display: "block",
+                      position: "absolute",
+                      right: "0px",
+                      top: "305px",
+                      height: "90px",
+                      width: "93px",
+                    }}
+                  />
+                </HouseIllustration>
+                <HouseIllustration>
+                  <img
+                    src={houseF}
+                    alt=""
+                    style={{
+                      display: "block",
+                      position: "absolute",
+                      right: "0px",
+                      top: "360px",
+                      height: "90px",
+                      width: "93px",
+                    }}
+                  />
+                </HouseIllustration>
+                <Grid></Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
