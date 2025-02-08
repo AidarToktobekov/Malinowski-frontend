@@ -3,6 +3,28 @@ import video1 from "../../assets/Malinowskiego_Hero_1-1.mp4";
 import video2 from "../../assets/Malinowskiego_Hero_1-2.mp4";
 import video3 from "../../assets/Malinowskiego_Hero_4-2.mp4";
 import video4 from "../../assets/Malinowskiego_Hero_2-1.mp4";
+import videoHouseA1 from "../../assets/Malinowskiego_HouseA_0-1.mp4"
+import videoHouseA3 from "../../assets/Malinowskiego_HouseA_1-1.mp4"
+import backA from "../../assets/Malinowskiego_HouseA_1-0.mp4"
+import exteriorA1_1 from "../../assets/Malinowskiego_HouseA_4-1.mp4"
+import exteriorA1_2 from "../../assets/Malinowskiego_HouseA_2-1.mp4"
+import exteriorA1_3 from "../../assets/Malinowskiego_HouseA_I1-1.mp4"
+import exteriorA1_4 from "../../assets/Malinowskiego_HouseA_I2-1.mp4"
+import videoHouseB1 from "../../assets/Malinowskiego_HouseB_0-1.mp4"
+import videoHouseB2 from "../../assets/Malinowskiego_HouseB_1-0.mp4"
+import videoHouseB3 from "../../assets/Malinowskiego_HouseB_1-1.mp4"
+import videoHouseC1 from "../../assets/Malinowskiego_HouseC_0-1.mp4"
+import videoHouseC2 from "../../assets/Malinowskiego_HouseC_1-0.mp4"
+import videoHouseC3 from "../../assets/Malinowskiego_HouseC_1-1.mp4"
+import videoHouseD1 from "../../assets/Malinowskiego_HouseD_0-1.mp4"
+import videoHouseD2 from "../../assets/Malinowskiego_HouseD_1-0.mp4"
+import videoHouseD3 from "../../assets/Malinowskiego_HouseD_1-1.mp4"
+import videoHouseE1 from "../../assets/Malinowskiego_HouseE_0-1.mp4"
+import videoHouseE2 from "../../assets/Malinowskiego_HouseE_1-0.mp4"
+import videoHouseE3 from "../../assets/Malinowskiego_HouseE_1-1.mp4"
+import videoHouseF1 from "../../assets/Malinowskiego_HouseF_0-1.mp4"
+import videoHouseF2 from "../../assets/Malinowskiego_HouseF_1-0.mp4"
+import videoHouseF3 from "../../assets/Malinowskiego_HouseF_1-1.mp4"
 import houseBase from "../../assets/houseBase.png";
 import houseA from "../../assets/houseA.svg";
 import houseB from "../../assets/houseB.svg";
@@ -11,9 +33,11 @@ import houseD from "../../assets/houseD.svg";
 import houseE from "../../assets/houseE.svg";
 import houseF from "../../assets/houseF.svg";
 import { useEffect, useRef, useState } from "react";
-import { Container, styled, Typography } from "@mui/material";
+import {Container, styled, Typography} from "@mui/material";
 import { WhiteButton } from "../../ui/header/Header.tsx";
 import HouseCard from "./components/HouseCard.tsx";
+import {House} from "../../types/malinowskiTypes.ts";
+import HouseShowing from "./components/HouseShowing.tsx";
 
 export const TitleLocation = styled(Typography)({
   color: "#fff",
@@ -45,9 +69,6 @@ export const HouseIllustration = styled(Grid)({
     "color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter",
   transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
   transitionDuration: "150ms",
-  "&:hover": {
-    opacity: 1,
-  },
 });
 
 interface Props {
@@ -55,9 +76,47 @@ interface Props {
 }
 const Main: React.FC<Props> = ({ language }) => {
   const [video, setVideo] = useState(video3);
+  const [isHovered, setIsHovered] = useState('');
+  const [showHouse, setShowHouse] = useState<House>({
+      houseNumber: '',
+      plot: '',
+      house: '',
+      price: '',
+      sold: true,
+      language: '',
+      video: {
+          back: '',
+          exterior1_1: '',
+          exterior1_2: '',
+          exterior1_3: '',
+          exterior1_4: '',
+          exterior2_1: '',
+          exterior2_2: '',
+          exterior3_1: '',
+          exterior3_2: '',
+          exterior4_1: '',
+          exterior4_2: '',
+          interior1_1: '',
+          interior1_2: '',
+          interior2_1: '',
+          interior2_2: '',
+      }
+  });
 
   const videoRef2 = useRef<HTMLVideoElement | null>(null);
   const videoRef4 = useRef<HTMLVideoElement | null>(null);
+  const videoHouseA1Ref = useRef<HTMLVideoElement | null>(null);
+  const videoHouseA2Ref = useRef<HTMLVideoElement | null>(null);
+  const videoHouseB1Ref = useRef<HTMLVideoElement | null>(null);
+  const videoHouseB2Ref = useRef<HTMLVideoElement | null>(null);
+  const videoHouseC1Ref = useRef<HTMLVideoElement | null>(null);
+  const videoHouseC2Ref = useRef<HTMLVideoElement | null>(null);
+  const videoHouseD1Ref = useRef<HTMLVideoElement | null>(null);
+  const videoHouseD2Ref = useRef<HTMLVideoElement | null>(null);
+  const videoHouseE1Ref = useRef<HTMLVideoElement | null>(null);
+  const videoHouseE2Ref = useRef<HTMLVideoElement | null>(null);
+  const videoHouseF1Ref = useRef<HTMLVideoElement | null>(null);
+  const videoHouseF2Ref = useRef<HTMLVideoElement | null>(null);
 
   let videoProps = {
     autoPlay: true,
@@ -68,6 +127,16 @@ const Main: React.FC<Props> = ({ language }) => {
     playsInline: true,
   };
 
+  useEffect(() => {
+      if (showHouse.houseNumber) {
+          document.body.style.overflow = "hidden";
+      } else {
+          document.body.style.overflow = "";
+      }
+      return () => {
+          document.body.style.overflow = "";
+      };
+      }, [showHouse]);
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -83,6 +152,7 @@ const Main: React.FC<Props> = ({ language }) => {
       },
       { threshold: 0.5 },
     );
+
     const section1 = document.getElementById("section1");
     const section2 = document.getElementById("section2");
 
@@ -102,136 +172,376 @@ const Main: React.FC<Props> = ({ language }) => {
     } else if (videoRef4.current && video === video4) {
       videoRef4.current.currentTime = 0;
       videoRef4.current.play();
+    } else if (videoHouseA1Ref.current && video === videoHouseA1) {
+        videoHouseA1Ref.current.currentTime = 0;
+        videoHouseA1Ref.current.play();
+    }else if (videoHouseA2Ref.current && video === backA) {
+        videoHouseA2Ref.current.currentTime = 0;
+        videoHouseA2Ref.current.play();
+    }else if (videoHouseB1Ref.current && video === videoHouseB1) {
+        videoHouseB1Ref.current.currentTime = 0;
+        videoHouseB1Ref.current.play();
+    }else if (videoHouseB2Ref.current && video === videoHouseB2) {
+        videoHouseB2Ref.current.currentTime = 0;
+        videoHouseB2Ref.current.play();
+    }else if (videoHouseC1Ref.current && video === videoHouseC1) {
+        videoHouseC1Ref.current.currentTime = 0;
+        videoHouseC1Ref.current.play();
+    }else if (videoHouseC2Ref.current && video === videoHouseC2) {
+        videoHouseC2Ref.current.currentTime = 0;
+        videoHouseC2Ref.current.play();
+    }else if (videoHouseD1Ref.current && video === videoHouseD1) {
+        videoHouseD1Ref.current.currentTime = 0;
+        videoHouseD1Ref.current.play();
+    }else if (videoHouseD2Ref.current && video === videoHouseD2) {
+        videoHouseD2Ref.current.currentTime = 0;
+        videoHouseD2Ref.current.play();
+    }else if (videoHouseE1Ref.current && video === videoHouseE1) {
+        videoHouseE1Ref.current.currentTime = 0;
+        videoHouseE1Ref.current.play();
+    }else if (videoHouseE2Ref.current && video === videoHouseE2) {
+        videoHouseE2Ref.current.currentTime = 0;
+        videoHouseE2Ref.current.play();
+    }else if (videoHouseF1Ref.current && video === videoHouseF1) {
+        videoHouseF1Ref.current.currentTime = 0;
+        videoHouseF1Ref.current.play();
+    }else if (videoHouseF2Ref.current && video === videoHouseF2) {
+        videoHouseF2Ref.current.currentTime = 0;
+        videoHouseF2Ref.current.play();
     }
   }, [video]);
 
   return (
     <>
       <Grid>
-        <Grid
-          sx={{
-            position: "fixed",
-            left: 0,
-            top: 0,
-            width: "100%",
-            height: "100%",
-            zIndex: "-1",
-            "&::after": {
-              zIndex: "1",
-              content: '""',
-              opacity: "0.6",
-              position: "absolute",
-              top: "0px",
-              left: "0px",
-              width: "100%",
-              height: "100%",
-              background:
-                "linear-gradient(269.91deg, rgba(0, 0, 0, 0) 11.86%, rgba(0, 0, 0, 0.93) 110.84%)",
-            },
-          }}
-        >
-          <video
-            style={{
-              position: "absolute",
-              display: video === video1 ? "block" : "none",
-              top: "50%",
-              transform: "translate(0, -50%)",
-              width: "100%",
-              transition: "125ms ease-in",
-              objectFit: "cover",
-            }}
-            {...videoProps}
-            src={video1}
-            loop
-          />
-          <video
-            style={{
-              position: "absolute",
-              display: video === video2 ? "block" : "none",
-              top: "50%",
-              transform: "translate(0, -50%)",
-              width: "100%",
-              transition: "125ms ease-in",
-              objectFit: "cover",
-            }}
-            ref={videoRef2}
-            onEnded={() => {
-              if (video === video2) setVideo(video3);
-            }}
-            src={video2}
-            {...videoProps}
-          />
-          <video
-            style={{
-              position: "absolute",
-              display: video === video3 ? "block" : "none",
-              top: "50%",
-              transform: "translate(0, -50%)",
-              width: "100%",
-              transition: "125ms ease-in",
-              objectFit: "cover",
-            }}
-            {...videoProps}
-            src={video3}
-            loop
-          />
-          <video
-            style={{
-              position: "absolute",
-              display: video === video4 ? "block" : "none",
-              top: "50%",
-              transform: "translate(0, -50%)",
-              width: "100%",
-              transition: "125ms ease-in",
-              objectFit: "cover",
-            }}
-            {...videoProps}
-            onEnded={() => {
-              if (video === video4) setVideo(video1);
-            }}
-            src={video4}
-            ref={videoRef4}
-          />
-        </Grid>
-      </Grid>
-      <Container
-        maxWidth={false}
-        disableGutters
-        sx={{
-          maxWidth: "1350px",
-          px: 2,
-        }}
-      >
-        <Grid
-          id="section1"
-          sx={{
-            width: "100%",
-            padding: "95px 0",
-            lineHeight: "110%",
-            letterSpacing: "-0.03em",
-            "@media (min-width: 1024px)": {
-              width: "40%",
-            },
-          }}
-        >
-          <Typography
-            variant="h3"
-            sx={{
-              fontSize: "48px",
-              fontWeight: "600",
-              color: "white",
-              fontFamily: "Poppins",
-              marginBottom: "12.8px",
-
-              "@media (min-width: 1024px)": {
-                fontSize: "64px",
-              },
-            }}
+          <Grid
+              sx={{
+                  position: "fixed",
+                  left: 0,
+                  top: 0,
+                  width: "100%",
+                  height: "100%",
+                  zIndex: "-1",
+                  "&::after": {
+                      zIndex: "1",
+                      content: '""',
+                      opacity: "0.6",
+                      position: "absolute",
+                      top: "0px",
+                      left: "0px",
+                      width: "100%",
+                      height: "100%",
+                      background:
+                          "linear-gradient(269.91deg, rgba(0, 0, 0, 0) 11.86%, rgba(0, 0, 0, 0.93) 110.84%)",
+                  },
+              }}
           >
-            {language === "eng" && "Malinowski housing estate"}
-            {language === "pl" && "Osiedle Malinowskiego"}
-            {language === "esp" && "Urbanización Malinowski"}
-            {language === "pt" && "Condomínio residencial Malinowski"}
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === video1 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  src={video1}
+                  loop
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === video2 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  ref={videoRef2}
+                  onEnded={() => {
+                      if (video === video2) setVideo(video3);
+                  }}
+                  src={video2}
+                  {...videoProps}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === video3 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  src={video3}
+                  loop
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === video4 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  onEnded={() => {
+                      if (video === video4) setVideo(video1);
+                  }}
+                  src={video4}
+                  ref={videoRef4}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseA1 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  onEnded={() => {
+                      if (video === videoHouseA1) setVideo(videoHouseA3);
+                  }}
+                  src={videoHouseA1}
+                  ref={videoHouseA1Ref}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === backA ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  onEnded={() => {
+                      if (video === backA) setVideo(video3);
+                  }}
+                  src={backA}
+                  ref={videoHouseA2Ref}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseA3 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  loop
+                  src={videoHouseA3}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseB1 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  onEnded={() => {
+                      if (video === videoHouseB1) setVideo(videoHouseB3);
+                  }}
+                  src={videoHouseB1}
+                  ref={videoHouseB1Ref}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseB3 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  loop
+                  src={videoHouseB3}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseC1 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  onEnded={() => {
+                      if (video === videoHouseC1) setVideo(videoHouseC3);
+                  }}
+                  src={videoHouseC1}
+                  ref={videoHouseC1Ref}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseC3 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  loop
+                  src={videoHouseC3}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseD1 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  onEnded={() => {
+                      if (video === videoHouseD1) setVideo(videoHouseD3);
+                  }}
+                  src={videoHouseD1}
+                  ref={videoHouseD1Ref}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseD3 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  loop
+                  src={videoHouseD3}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseE1 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  onEnded={() => {
+                      if (video === videoHouseE1) setVideo(videoHouseE3);
+                  }}
+                  src={videoHouseE1}
+                  ref={videoHouseE1Ref}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseE3 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  loop
+                  src={videoHouseE3}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseF1 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  onEnded={() => {
+                      if (video === videoHouseF1) setVideo(videoHouseF3);
+                  }}
+                  src={videoHouseF1}
+                  ref={videoHouseF1Ref}
+              />
+              <video
+                  style={{
+                      position: "absolute",
+                      display: video === videoHouseF3 ? "block" : "none",
+                      top: "50%",
+                      transform: "translate(0, -50%)",
+                      width: "100%",
+                      transition: "125ms ease-in",
+                      objectFit: "cover",
+                  }}
+                  {...videoProps}
+                  loop
+                  src={videoHouseF3}
+              />
+          </Grid>
+      </Grid>
+        <Container
+            maxWidth={false}
+            disableGutters
+            sx={{
+                maxWidth: "1350px",
+                px: 2,
+                position: 'relative',
+            }}
+        >
+            <Grid
+                id="section1"
+                sx={{
+                    width: "100%",
+                    padding: "95px 0",
+                    lineHeight: "110%",
+                    letterSpacing: "-0.03em",
+                    "@media (min-width: 1024px)": {
+                        width: "40%",
+                    },
+                }}
+            >
+                <Typography
+                    variant="h3"
+                    sx={{
+                        fontSize: "48px",
+                        fontWeight: "600",
+                        color: "white",
+                        fontFamily: "Poppins",
+                        marginBottom: "12.8px",
+
+                        "@media (min-width: 1024px)": {
+                            fontSize: "64px",
+                        },
+                    }}
+                >
+                    {language === "eng" && "Malinowski housing estate"}
+                    {language === "pl" && "Osiedle Malinowskiego"}
+                    {language === "esp" && "Urbanización Malinowski"}
+                    {language === "pt" && "Condomínio residencial Malinowski"}
           </Typography>
           <Typography
             sx={{
@@ -429,279 +739,387 @@ const Main: React.FC<Props> = ({ language }) => {
           id="section2"
           sx={{
             padding: "90px 0 40px",
+              height: showHouse.houseNumber? "100vh" : "none",
           }}
         >
-          <Typography
-            variant="h3"
-            sx={{
-              fontSize: "48px",
-              fontWeight: "600",
-              color: "white",
-              fontFamily: "Poppins",
-              marginBottom: "24px",
-
-              "@media (min-width: 1024px)": {
-                fontSize: "64px",
-              },
-            }}
-          >
-            {language === "eng" && "Select your house"}
-            {language === "pl" && "Wybierz swój dom"}
-            {language === "esp" && "Selecciona tu casa"}
-            {language === "pt" && "Selecione sua casa"}
-          </Typography>
-          <Grid
-            sx={{
-              display: "flex",
-              gap: "10px",
-            }}
-          >
-            <Grid
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "4px",
-              }}
-            >
-              <HouseCard
-                houseNumber="38a"
-                house="147"
-                plot="900"
-                price="360.000"
-                sold={true}
-                language={language}
-              ></HouseCard>
-              <HouseCard
-                houseNumber="38b"
-                house="168.8"
-                plot="890"
-                price="360.000"
-                sold={true}
-                language={language}
-              ></HouseCard>
-              <HouseCard
-                houseNumber="38c"
-                house="147"
-                plot="900"
-                price="360.000"
-                sold={false}
-                language={language}
-              ></HouseCard>
-              <HouseCard
-                houseNumber="38d"
-                house="147"
-                plot="900"
-                price="360.000"
-                sold={false}
-                language={language}
-              ></HouseCard>
-              <HouseCard
-                houseNumber="38e"
-                house="147"
-                plot="900"
-                price="360.000"
-                sold={false}
-                language={language}
-              ></HouseCard>
-              <HouseCard
-                houseNumber="38f"
-                house="147"
-                plot="900"
-                price="360.000"
-                sold={false}
-                language={language}
-              ></HouseCard>
-            </Grid>
-            <Grid
-              sx={{
-                width: "110px",
-                p: "8px 0",
-                borderRadius: "8px",
-                background: "rgba(0, 0, 0, 0.3)",
-                border: "0.5px solid #404040",
-              }}
-            >
-              <Grid
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  position: "relative",
-                }}
-              >
-                <img
-                  src={houseBase}
-                  alt="house base"
-                  style={{
-                    position: "absolute",
-                    display: "block",
-                    top: "0",
-                    left: "0",
-                    width: "100%",
-                    height: "100%",
-                  }}
+            {showHouse.houseNumber? (
+                <HouseShowing
+                    houseNumber={showHouse.houseNumber}
+                    house={showHouse.house}
+                    plot={showHouse.plot}
+                    price={showHouse.price}
+                    sold={showHouse.sold}
+                    language={showHouse.language}
+                    setShowHouse={setShowHouse}
+                    setVideo={setVideo}
+                    nowVideo={video}
+                    video={showHouse.video}
                 />
-                <HouseIllustration>
-                  <img
-                    src={houseA}
-                    alt=""
-                    style={{
-                      display: "block",
-                      position: "absolute",
-                      right: "0px",
-                      top: "5px",
-                      height: "93px",
-                      width: "93px",
-                    }}
-                  />
-                  <Grid
+            ):(
+                <>
+                  <Typography
+                    variant="h3"
                     sx={{
-                      position: "absolute",
-                      top: "10px",
-                      right: "0.375rem",
-                      display: "flex",
-                      height: "83px",
-                      width: "93px",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      fontSize: "48px",
+                      fontWeight: "600",
+                      color: "white",
+                      fontFamily: "Poppins",
+                      marginBottom: "24px",
+
+                      "@media (min-width: 1024px)": {
+                        fontSize: "64px",
+                      },
                     }}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 31 30"
-                      width="48"
-                      height="48"
-                    >
-                      <rect
-                        width="30"
-                        height="30"
-                        x="0.5"
-                        fill="#333"
-                        fillOpacity="0.3"
-                        rx="15"
-                      ></rect>
-                      <g
-                        stroke="#EAEAEA"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        opacity="0.7"
-                      >
-                        <path d="M19 14.5h-7a1 1 0 0 0-1 1V19a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1ZM13 14.5v-2a2.5 2.5 0 0 1 5 0v2"></path>
-                      </g>
-                    </svg>
-                  </Grid>
-                </HouseIllustration>
-                <HouseIllustration>
-                  <img
-                    src={houseB}
-                    alt=""
-                    style={{
-                      display: "block",
-                      position: "absolute",
-                      right: "0px",
-                      top: "100px",
-                      height: "90px",
-                      width: "93px",
-                    }}
-                  />
+                    {language === "eng" && "Select your house"}
+                    {language === "pl" && "Wybierz swój dom"}
+                    {language === "esp" && "Selecciona tu casa"}
+                    {language === "pt" && "Selecione sua casa"}
+                  </Typography>
                   <Grid
                     sx={{
-                      position: "absolute",
-                      top: "93px",
-                      right: "0.375rem",
                       display: "flex",
-                      height: "83px",
-                      width: "93px",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      gap: "10px",
                     }}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 31 30"
-                      width="48"
-                      height="48"
+                    <Grid
+                      sx={{
+                          width: "370px",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "4px",
+                      }}
                     >
-                      <rect
-                        width="30"
-                        height="30"
-                        x="0.5"
-                        fill="#333"
-                        fillOpacity="0.3"
-                        rx="15"
-                      ></rect>
-                      <g
-                        stroke="#EAEAEA"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        opacity="0.7"
+                      <HouseCard
+                          setVideo={setVideo}
+                          video={videoHouseA1}
+                        houseNumber="38a"
+                        house="147"
+                        plot="900"
+                        price="360.000"
+                        sold={true}
+                        language={language}
+                        isHovered={isHovered}
+                        setIsHovered={setIsHovered}
+                          size="small"
+                          setShowHouse={setShowHouse}
+                          allVideo={{
+                              back: backA,
+                              exterior1_1: exteriorA1_1,
+                              exterior1_2: exteriorA1_2,
+                              exterior1_3: exteriorA1_3,
+                              exterior1_4: exteriorA1_4,
+                              exterior2_1: '',
+                              exterior2_2: '',
+                              exterior3_1: '',
+                              exterior3_2: '',
+                              exterior4_1: '',
+                              exterior4_2: '',
+                              interior1_1: '',
+                              interior1_2: '',
+                              interior2_1: '',
+                              interior2_2: '',
+                          }}
+                      ></HouseCard>
+                      <HouseCard
+                          setVideo={setVideo}
+                          video={videoHouseB1}
+                        houseNumber="38b"
+                        house="168.8"
+                        plot="890"
+                        price="360.000"
+                        sold={true}
+                        language={language}
+                        isHovered={isHovered}
+                        setIsHovered={setIsHovered}
+                          size="small"
+                      ></HouseCard>
+                      <HouseCard
+                          setVideo={setVideo}
+                          video={videoHouseC1}
+                        houseNumber="38c"
+                        house="147"
+                        plot="900"
+                        price="360.000"
+                        sold={false}
+                        language={language}
+                        isHovered={isHovered}
+                        setIsHovered={setIsHovered}
+                          size="small"
+                      ></HouseCard>
+                      <HouseCard
+                          setVideo={setVideo}
+                          video={videoHouseD1}
+                        houseNumber="38d"
+                        house="147"
+                        plot="900"
+                        price="360.000"
+                        sold={false}
+                        language={language}
+                        isHovered={isHovered}
+                        setIsHovered={setIsHovered}
+                          size="small"
+                      ></HouseCard>
+                      <HouseCard
+                          setVideo={setVideo}
+                          video={videoHouseE1}
+                        houseNumber="38e"
+                        house="147"
+                        plot="900"
+                        price="360.000"
+                        sold={false}
+                        language={language}
+                        isHovered={isHovered}
+                        setIsHovered={setIsHovered}
+                          size="small"
+                      ></HouseCard>
+                      <HouseCard
+                          setVideo={setVideo}
+                          video={videoHouseF1}
+                        houseNumber="38f"
+                        house="147"
+                        plot="900"
+                        price="360.000"
+                        sold={false}
+                        language={language}
+                        isHovered={isHovered}
+                        setIsHovered={setIsHovered}
+                          size="small"
+                      ></HouseCard>
+                    </Grid>
+                    <Grid
+                      sx={{
+                        width: "110px",
+                        p: "8px 0",
+                        borderRadius: "8px",
+                        background: "rgba(0, 0, 0, 0.3)",
+                        border: "0.5px solid #404040",
+                      }}
+                    >
+                      <Grid
+                        sx={{
+                          width: "100%",
+                          height: "100%",
+                          position: "relative",
+                        }}
                       >
-                        <path d="M19 14.5h-7a1 1 0 0 0-1 1V19a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1ZM13 14.5v-2a2.5 2.5 0 0 1 5 0v2"></path>
-                      </g>
-                    </svg>
+                        <img
+                          src={houseBase}
+                          alt="house base"
+                          style={{
+                            position: "absolute",
+                            display: "block",
+                            top: "0",
+                            left: "0",
+                            width: "100%",
+                            height: "100%",
+                          }}
+                        />
+                        <HouseIllustration
+                            onClick={()=>setVideo(videoHouseA1)}
+                            onMouseEnter={() => setIsHovered("38a")}
+                            onMouseLeave={() => setIsHovered('')}
+                            sx={{
+                            opacity: isHovered === "38a" ? 1 : 0,
+                        }}>
+
+                          <img
+                            src={houseA}
+                            alt=""
+                            style={{
+                              display: "block",
+                              position: "absolute",
+                              right: "0px",
+                              top: "5px",
+                              height: "93px",
+                              width: "93px",
+                            }}
+                          />
+                          <Grid
+                            sx={{
+                              position: "absolute",
+                              top: "10px",
+                              right: "0.375rem",
+                              display: "flex",
+                              height: "83px",
+                              width: "93px",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 31 30"
+                              width="48"
+                              height="48"
+                            >
+                              <rect
+                                width="30"
+                                height="30"
+                                x="0.5"
+                                fill="#333"
+                                fillOpacity="0.3"
+                                rx="15"
+                              ></rect>
+                              <g
+                                stroke="#EAEAEA"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                opacity="0.7"
+                              >
+                                <path d="M19 14.5h-7a1 1 0 0 0-1 1V19a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1ZM13 14.5v-2a2.5 2.5 0 0 1 5 0v2"></path>
+                              </g>
+                            </svg>
+                          </Grid>
+                        </HouseIllustration>
+                        <HouseIllustration
+                            onClick={()=>setVideo(videoHouseB1)}
+                            onMouseEnter={() => setIsHovered("38b")}
+                            onMouseLeave={() => setIsHovered('')}
+                            sx={{
+                                    opacity: isHovered === "38b" ? 1 : 0,
+                            }}
+                        >
+                          <img
+                            src={houseB}
+                            alt=""
+                            style={{
+                              display: "block",
+                              position: "absolute",
+                              right: "0px",
+                              top: "100px",
+                              height: "90px",
+                              width: "93px",
+                            }}
+                          />
+                          <Grid
+                            sx={{
+                              position: "absolute",
+                              top: "93px",
+                              right: "0.375rem",
+                              display: "flex",
+                              height: "83px",
+                              width: "93px",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 31 30"
+                              width="48"
+                              height="48"
+                            >
+                              <rect
+                                width="30"
+                                height="30"
+                                x="0.5"
+                                fill="#333"
+                                fillOpacity="0.3"
+                                rx="15"
+                              ></rect>
+                              <g
+                                stroke="#EAEAEA"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                opacity="0.7"
+                              >
+                                <path d="M19 14.5h-7a1 1 0 0 0-1 1V19a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1ZM13 14.5v-2a2.5 2.5 0 0 1 5 0v2"></path>
+                              </g>
+                            </svg>
+                          </Grid>
+                        </HouseIllustration>
+                        <HouseIllustration
+                            onClick={()=>setVideo(videoHouseC1)}
+                            onMouseEnter={() => setIsHovered("38c")}
+                            onMouseLeave={() => setIsHovered('')}
+                            sx={{
+                                opacity: isHovered === "38c" ? 1 : 0,
+                            }}
+                        >
+                          <img
+                            src={houseC}
+                            alt=""
+                            style={{
+                              display: "block",
+                              position: "absolute",
+                              right: "0px",
+                              top: "175px",
+                              height: "90px",
+                              width: "93px",
+                            }}
+                          />
+                        </HouseIllustration>
+                        <HouseIllustration
+                            onClick={()=>setVideo(videoHouseD1)}
+                            onMouseEnter={() => setIsHovered("38d")}
+                            onMouseLeave={() => setIsHovered('')}
+                            sx={{
+                                opacity: isHovered === "38d" ? 1 : 0,
+                            }}
+                        >
+                          <img
+                            src={houseD}
+                            alt=""
+                            style={{
+                              display: "block",
+                              position: "absolute",
+                              right: "0px",
+                              top: "240px",
+                              height: "90px",
+                              width: "93px",
+                            }}
+                          />
+                        </HouseIllustration>
+                        <HouseIllustration
+                            onClick={()=>setVideo(videoHouseE1)}
+                            onMouseEnter={() => setIsHovered("38e")}
+                            onMouseLeave={() => setIsHovered('')}
+                            sx={{
+                                opacity: isHovered === "38e" ? 1 : 0,
+                            }}
+                        >
+                          <img
+                            src={houseE}
+                            alt=""
+                            style={{
+                              display: "block",
+                              position: "absolute",
+                              right: "0px",
+                              top: "305px",
+                              height: "90px",
+                              width: "93px",
+                            }}
+                          />
+                        </HouseIllustration>
+                        <HouseIllustration
+                            onClick={()=>setVideo(videoHouseF1)}
+                            onMouseEnter={() => setIsHovered("38f")}
+                            onMouseLeave={() => setIsHovered('')}
+                            sx={{
+                                opacity: isHovered === "38f" ? 1 : 0,
+                            }}
+                        >
+                          <img
+                            src={houseF}
+                            alt=""
+                            style={{
+                              display: "block",
+                              position: "absolute",
+                              right: "0px",
+                              top: "360px",
+                              height: "90px",
+                              width: "93px",
+                            }}
+                          />
+                        </HouseIllustration>
+                      </Grid>
+                    </Grid>
                   </Grid>
-                </HouseIllustration>
-                <HouseIllustration>
-                  <img
-                    src={houseC}
-                    alt=""
-                    style={{
-                      display: "block",
-                      position: "absolute",
-                      right: "0px",
-                      top: "175px",
-                      height: "90px",
-                      width: "93px",
-                    }}
-                  />
-                </HouseIllustration>
-                <HouseIllustration>
-                  <img
-                    src={houseD}
-                    alt=""
-                    style={{
-                      display: "block",
-                      position: "absolute",
-                      right: "0px",
-                      top: "240px",
-                      height: "90px",
-                      width: "93px",
-                    }}
-                  />
-                </HouseIllustration>
-                <HouseIllustration>
-                  <img
-                    src={houseE}
-                    alt=""
-                    style={{
-                      display: "block",
-                      position: "absolute",
-                      right: "0px",
-                      top: "305px",
-                      height: "90px",
-                      width: "93px",
-                    }}
-                  />
-                </HouseIllustration>
-                <HouseIllustration>
-                  <img
-                    src={houseF}
-                    alt=""
-                    style={{
-                      display: "block",
-                      position: "absolute",
-                      right: "0px",
-                      top: "360px",
-                      height: "90px",
-                      width: "93px",
-                    }}
-                  />
-                </HouseIllustration>
-                <Grid></Grid>
-              </Grid>
-            </Grid>
-          </Grid>
+                </>
+            )}
         </Grid>
       </Container>
     </>

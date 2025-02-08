@@ -1,50 +1,66 @@
 import Grid from "@mui/material/Grid2";
-import { Typography } from "@mui/material";
+import {Typography} from "@mui/material";
+import {IHouseCard} from "../../../types/malinowskiTypes.ts";
 
-interface Props {
-  houseNumber: string;
-  plot: string;
-  house: string;
-  price: string;
-  sold: boolean;
-  language: string;
-}
-const HouseCard: React.FC<Props> = ({
+const HouseCard: React.FC<IHouseCard> = ({
   houseNumber,
   house,
   sold,
   price,
   plot,
-  language,
+  language, isHovered, setIsHovered,
+    setVideo,
+    video,
+                                        size,
+    setShowHouse,
+    allVideo,
 }) => {
   return (
     <Grid
+        onClick={()=> {
+            if(setVideo && video && setShowHouse && allVideo){
+                setShowHouse({
+                    houseNumber: houseNumber,
+                    plot: plot,
+                    house: house,
+                    price: price,
+                    sold: sold,
+                    language: language,
+                    video: allVideo,
+                });
+                setVideo(video);
+            }
+        }}
+        onMouseEnter={() => {
+            if (setIsHovered){
+                setIsHovered(houseNumber);
+            }
+        }}
+        onMouseLeave={() => {
+            if (setIsHovered){
+                setIsHovered('');
+            }
+        }}
       sx={{
-        width: "370px",
-        background: "rgba(0, 0, 0, 0.3)",
+        width: "100%",
+        background: isHovered === houseNumber ? "rgba(255, 255, 255, 0.8)" : "rgba(0, 0, 0, 0.3)",
         borderRadius: "8px",
         transform: "translate(scaleX(1) scaleY(1))",
-        cursor: "pointer",
+        cursor: size === "small" ? "pointer" : "default",
         border: "1px solid #404040",
-        padding: "12px 28px",
+        padding: size === "small" ? "12px 28px" : "8px 24px",
         transitionProperty:
           "color, background-color, border-color, text-decoration-color, fill, stroke",
         transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
         transitionDuration: "300ms",
-        color: sold ? "rgba(174, 174, 174, 1)" : "#fff",
+        color: size === "small" ? (isHovered === houseNumber ?  (sold ? "rgba(174, 174, 174, 1)" : "#000") : (sold ? "rgba(174, 174, 174, 1)" : "#ffffffde")) : "#ffffffde",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-
-        "&:hover": {
-          background: "rgba(255, 255, 255, 0.8)",
-          color: sold ? "rgba(174, 174, 174, 1)" : "#000",
-        },
       }}
     >
       <Grid
         sx={{
-          width: "60px",
           borderRight: "1px solid #404040",
           paddingRight: "24px",
         }}
@@ -52,10 +68,11 @@ const HouseCard: React.FC<Props> = ({
         <Typography
           component="span"
           sx={{
-            fontSize: "10px",
+            fontSize: size === "small" ? "10px" : "14px",
             mb: "4px",
             textTransform: "uppercase",
             fontFamily: "Inter",
+              display: size === "small" ? "inline-block" : "none"
           }}
         >
           {language === "eng" && "House"}
@@ -67,6 +84,7 @@ const HouseCard: React.FC<Props> = ({
           sx={{
             textTransform: "uppercase",
             fontFamily: "Inter",
+              fontSize: size === "small" ? "16px" : "34px",
           }}
         >
           {houseNumber}
@@ -76,7 +94,7 @@ const HouseCard: React.FC<Props> = ({
         <Typography
           component="span"
           sx={{
-            fontSize: "10px",
+            fontSize: size === "small" ? "10px" : "14px",
             mb: "4px",
             textTransform: "uppercase",
             fontFamily: "Inter",
@@ -100,7 +118,7 @@ const HouseCard: React.FC<Props> = ({
         <Typography
           component="span"
           sx={{
-            fontSize: "10px",
+            fontSize: size === "small" ? "10px" : "14px",
             mb: "4px",
             textTransform: "uppercase",
             fontFamily: "Inter",
@@ -124,7 +142,7 @@ const HouseCard: React.FC<Props> = ({
         <Typography
           component="span"
           sx={{
-            fontSize: "10px",
+            fontSize: size === "small" ? "10px" : "14px",
             mb: "4px",
             textTransform: "uppercase",
             fontFamily: "Inter",
