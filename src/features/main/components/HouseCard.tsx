@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid2";
-import {Typography} from "@mui/material";
-import {IHouseCard} from "../../../types/malinowskiTypes.ts";
+import { Typography } from "@mui/material";
+import { IHouseCard } from "../../../types/malinowskiTypes.ts";
 
 const HouseCard: React.FC<IHouseCard> = ({
   houseNumber,
@@ -8,42 +8,49 @@ const HouseCard: React.FC<IHouseCard> = ({
   sold,
   price,
   plot,
-  language, isHovered, setIsHovered,
-    setVideo,
-    video,
-                                        size,
-    setShowHouse,
-    allVideo,
+  language,
+  isHovered,
+  setIsHovered,
+  setVideo,
+  video,
+  size,
+  setShowHouse,
+  allVideo,
+  photo,
 }) => {
   return (
     <Grid
-        onClick={()=> {
-            if(setVideo && video && setShowHouse && allVideo){
-                setShowHouse({
-                    houseNumber: houseNumber,
-                    plot: plot,
-                    house: house,
-                    price: price,
-                    sold: sold,
-                    language: language,
-                    video: allVideo,
-                });
-                setVideo(video);
-            }
-        }}
-        onMouseEnter={() => {
-            if (setIsHovered){
-                setIsHovered(houseNumber);
-            }
-        }}
-        onMouseLeave={() => {
-            if (setIsHovered){
-                setIsHovered('');
-            }
-        }}
+      onClick={() => {
+        if (setVideo && video && setShowHouse && allVideo && photo) {
+          setShowHouse({
+            houseNumber: houseNumber,
+            plot: plot,
+            house: house,
+            price: price,
+            sold: sold,
+            language: language,
+            video: allVideo,
+            photo: photo,
+          });
+          setVideo(video);
+        }
+      }}
+      onMouseEnter={() => {
+        if (setIsHovered) {
+          setIsHovered(houseNumber);
+        }
+      }}
+      onMouseLeave={() => {
+        if (setIsHovered) {
+          setIsHovered("");
+        }
+      }}
       sx={{
         width: "100%",
-        background: isHovered === houseNumber ? "rgba(255, 255, 255, 0.8)" : "rgba(0, 0, 0, 0.3)",
+        background:
+          isHovered === houseNumber
+            ? "rgba(255, 255, 255, 0.8)"
+            : "rgba(0, 0, 0, 0.3)",
         borderRadius: "8px",
         transform: "translate(scaleX(1) scaleY(1))",
         cursor: size === "small" ? "pointer" : "default",
@@ -53,7 +60,16 @@ const HouseCard: React.FC<IHouseCard> = ({
           "color, background-color, border-color, text-decoration-color, fill, stroke",
         transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
         transitionDuration: "300ms",
-        color: size === "small" ? (isHovered === houseNumber ?  (sold ? "rgba(174, 174, 174, 1)" : "#000") : (sold ? "rgba(174, 174, 174, 1)" : "#ffffffde")) : "#ffffffde",
+        color:
+          size === "small"
+            ? isHovered === houseNumber
+              ? sold
+                ? "rgba(174, 174, 174, 1)"
+                : "#000"
+              : sold
+                ? "rgba(174, 174, 174, 1)"
+                : "#ffffffde"
+            : "#ffffffde",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -72,7 +88,7 @@ const HouseCard: React.FC<IHouseCard> = ({
             mb: "4px",
             textTransform: "uppercase",
             fontFamily: "Inter",
-              display: size === "small" ? "inline-block" : "none"
+            display: size === "small" ? "inline-block" : "none",
           }}
         >
           {language === "eng" && "House"}
@@ -84,7 +100,7 @@ const HouseCard: React.FC<IHouseCard> = ({
           sx={{
             textTransform: "uppercase",
             fontFamily: "Inter",
-              fontSize: size === "small" ? "16px" : "34px",
+            fontSize: size === "small" ? "16px" : "34px",
           }}
         >
           {houseNumber}
