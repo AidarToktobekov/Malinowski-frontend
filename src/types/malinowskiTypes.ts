@@ -35,6 +35,14 @@ export interface IHouseCard {
     interior1: string;
     interior2: string;
   };
+  date?: string;
+  kitchen?: string;
+  garage?: string;
+  livingRoom?: string;
+  bedroom1?: string;
+  bedroom2?: string;
+  wardrobe?: string;
+  cabinet?: string;
 }
 
 export interface House {
@@ -68,6 +76,14 @@ export interface House {
     interior2: string;
   };
   photo: string[];
+  date: string;
+  kitchen: string;
+  garage: string;
+  livingRoom: string;
+  bedroom1: string;
+  bedroom2: string;
+  wardrobe: string;
+  cabinet: string;
 }
 
 export interface IHouseShowing {
@@ -104,4 +120,12 @@ export interface IHouseShowing {
   setVideo: (video: string) => void;
   nowVideo: string;
   photo: string[];
+  date: string;
+  kitchen: string;
+  garage: string;
+  livingRoom: string;
+  bedroom1: string;
+  bedroom2: string;
+  wardrobe: string;
+  cabinet: string;
 }

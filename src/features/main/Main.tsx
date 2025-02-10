@@ -149,6 +149,8 @@ import HouseCard from "./components/HouseCard.tsx";
 import { House } from "../../types/malinowskiTypes.ts";
 import HouseShowing from "./components/HouseShowing.tsx";
 import Video from "./components/Video.tsx";
+import Location from "./components/Location.tsx";
+import ConstructionTechnology from "./components/ConstructionTechnology.tsx";
 
 export const TitleLocation = styled(Typography)({
   color: "#fff",
@@ -219,6 +221,14 @@ const Main: React.FC<Props> = ({ language }) => {
       interior1: "",
       interior2: "",
     },
+    date: "",
+    kitchen: "",
+    garage: "",
+    livingRoom: "",
+    bedroom1: "",
+    bedroom2: "",
+    wardrobe: "",
+    cabinet: "",
   });
 
   useEffect(() => {
@@ -489,6 +499,14 @@ const Main: React.FC<Props> = ({ language }) => {
               nowVideo={video}
               video={showHouse.video}
               photo={showHouse.photo}
+              date={showHouse.date}
+              kitchen={showHouse.kitchen}
+              garage={showHouse.garage}
+              livingRoom={showHouse.livingRoom}
+              bedroom1={showHouse.bedroom1}
+              bedroom2={showHouse.bedroom2}
+              wardrobe={showHouse.wardrobe}
+              cabinet={showHouse.cabinet}
             />
           ) : (
             <>
@@ -562,6 +580,14 @@ const Main: React.FC<Props> = ({ language }) => {
                       interior1: interiorA1,
                       interior2: interiorA2,
                     }}
+                    date="3Q/2023"
+                    kitchen="7 м²"
+                    garage="22 м²"
+                    livingRoom="20 м²"
+                    bedroom1="18 м²"
+                    bedroom2="15 м²"
+                    wardrobe="3.5 м²"
+                    cabinet="3 м²"
                   ></HouseCard>
                   <HouseCard
                     setVideo={setVideo}
@@ -600,6 +626,14 @@ const Main: React.FC<Props> = ({ language }) => {
                       interior1: interiorB1,
                       interior2: interiorB2,
                     }}
+                    date="3Q/2023"
+                    kitchen="9 м²"
+                    garage="26 м²"
+                    livingRoom="23 м²"
+                    bedroom1="19 м²"
+                    bedroom2="17 м²"
+                    wardrobe="3.6 м²"
+                    cabinet="3.5 м²"
                   ></HouseCard>
                   <HouseCard
                     setVideo={setVideo}
@@ -638,6 +672,14 @@ const Main: React.FC<Props> = ({ language }) => {
                       interior1: interiorC1,
                       interior2: interiorC2,
                     }}
+                    date="3Q/2023"
+                    kitchen="7 м²"
+                    garage="22 м²"
+                    livingRoom="20 м²"
+                    bedroom1="18 м²"
+                    bedroom2="15 м²"
+                    wardrobe="3.5 м²"
+                    cabinet="3 м²"
                   ></HouseCard>
                   <HouseCard
                     setVideo={setVideo}
@@ -676,6 +718,14 @@ const Main: React.FC<Props> = ({ language }) => {
                       interior1: interiorD1,
                       interior2: interiorD2,
                     }}
+                    date="3Q/2023"
+                    kitchen="7 м²"
+                    garage="22 м²"
+                    livingRoom="20 м²"
+                    bedroom1="18 м²"
+                    bedroom2="15 м²"
+                    wardrobe="3.5 м²"
+                    cabinet="3 м²"
                   ></HouseCard>
                   <HouseCard
                     setVideo={setVideo}
@@ -714,6 +764,14 @@ const Main: React.FC<Props> = ({ language }) => {
                       interior1: interiorE1,
                       interior2: interiorE2,
                     }}
+                    date="3Q/2023"
+                    kitchen="7 м²"
+                    garage="22 м²"
+                    livingRoom="20 м²"
+                    bedroom1="18 м²"
+                    bedroom2="15 м²"
+                    wardrobe="3.5 м²"
+                    cabinet="3 м²"
                   ></HouseCard>
                   <HouseCard
                     setVideo={setVideo}
@@ -752,6 +810,14 @@ const Main: React.FC<Props> = ({ language }) => {
                       interior1: interiorF1,
                       interior2: interiorF2,
                     }}
+                    date="3Q/2023"
+                    kitchen="7 м²"
+                    garage="22 м²"
+                    livingRoom="20 м²"
+                    bedroom1="18 м²"
+                    bedroom2="15 м²"
+                    wardrobe="3.5 м²"
+                    cabinet="3 м²"
                   ></HouseCard>
                 </Grid>
                 <Grid
@@ -815,6 +881,14 @@ const Main: React.FC<Props> = ({ language }) => {
                             interior1: interiorA1,
                             interior2: interiorA2,
                           },
+                          date: "3Q/2023",
+                          kitchen: "7 м²",
+                          garage: "22 м²",
+                          livingRoom: "20 м²",
+                          bedroom1: "18 м²",
+                          bedroom2: "15 м²",
+                          wardrobe: "3.5 м²",
+                          cabinet: "3 м²",
                         });
                         setVideo(videoHouseA1);
                       }}
@@ -832,7 +906,7 @@ const Main: React.FC<Props> = ({ language }) => {
                           position: "absolute",
                           right: "0px",
                           top: "5px",
-                          height: "93px",
+                          height: "96px",
                           width: "93px",
                         }}
                       />
@@ -907,6 +981,14 @@ const Main: React.FC<Props> = ({ language }) => {
                             interior1: interiorB1,
                             interior2: interiorB2,
                           },
+                          date: "3Q/2023",
+                          kitchen: "9 м²",
+                          garage: "26 м²",
+                          livingRoom: "23 м²",
+                          bedroom1: "19 м²",
+                          bedroom2: "17 м²",
+                          wardrobe: "3.6 м²",
+                          cabinet: "3.5 м²",
                         });
                         setVideo(videoHouseB1);
                       }}
@@ -923,8 +1005,8 @@ const Main: React.FC<Props> = ({ language }) => {
                           display: "block",
                           position: "absolute",
                           right: "0px",
-                          top: "100px",
-                          height: "90px",
+                          top: "103px",
+                          height: "93px",
                           width: "93px",
                         }}
                       />
@@ -999,6 +1081,14 @@ const Main: React.FC<Props> = ({ language }) => {
                             interior1: interiorC1,
                             interior2: interiorC2,
                           },
+                          date: "3Q/2023",
+                          kitchen: "7 м²",
+                          garage: "22 м²",
+                          livingRoom: "20 м²",
+                          bedroom1: "18 м²",
+                          bedroom2: "15 м²",
+                          wardrobe: "3.5 м²",
+                          cabinet: "3 м²",
                         });
                         setVideo(videoHouseC1);
                       }}
@@ -1015,8 +1105,8 @@ const Main: React.FC<Props> = ({ language }) => {
                           display: "block",
                           position: "absolute",
                           right: "0px",
-                          top: "175px",
-                          height: "90px",
+                          top: "180px",
+                          height: "93px",
                           width: "93px",
                         }}
                       />
@@ -1054,6 +1144,14 @@ const Main: React.FC<Props> = ({ language }) => {
                             interior1: interiorD1,
                             interior2: interiorD2,
                           },
+                          date: "3Q/2023",
+                          kitchen: "7 м²",
+                          garage: "22 м²",
+                          livingRoom: "20 м²",
+                          bedroom1: "18 м²",
+                          bedroom2: "15 м²",
+                          wardrobe: "3.5 м²",
+                          cabinet: "3 м²",
                         });
                         setVideo(videoHouseD1);
                       }}
@@ -1070,8 +1168,8 @@ const Main: React.FC<Props> = ({ language }) => {
                           display: "block",
                           position: "absolute",
                           right: "0px",
-                          top: "240px",
-                          height: "90px",
+                          top: "245px",
+                          height: "95px",
                           width: "93px",
                         }}
                       />
@@ -1109,6 +1207,14 @@ const Main: React.FC<Props> = ({ language }) => {
                             interior1: interiorE1,
                             interior2: interiorE2,
                           },
+                          date: "3Q/2023",
+                          kitchen: "7 м²",
+                          garage: "22 м²",
+                          livingRoom: "20 м²",
+                          bedroom1: "18 м²",
+                          bedroom2: "15 м²",
+                          wardrobe: "3.5 м²",
+                          cabinet: "3 м²",
                         });
                         setVideo(videoHouseE1);
                       }}
@@ -1125,7 +1231,7 @@ const Main: React.FC<Props> = ({ language }) => {
                           display: "block",
                           position: "absolute",
                           right: "0px",
-                          top: "305px",
+                          top: "315px",
                           height: "90px",
                           width: "93px",
                         }}
@@ -1164,6 +1270,14 @@ const Main: React.FC<Props> = ({ language }) => {
                             interior1: interiorF1,
                             interior2: interiorF2,
                           },
+                          date: "3Q/2023",
+                          kitchen: "7 м²",
+                          garage: "22 м²",
+                          livingRoom: "20 м²",
+                          bedroom1: "18 м²",
+                          bedroom2: "15 м²",
+                          wardrobe: "3.5 м²",
+                          cabinet: "3 м²",
                         });
                         setVideo(videoHouseF1);
                       }}
@@ -1180,8 +1294,8 @@ const Main: React.FC<Props> = ({ language }) => {
                           display: "block",
                           position: "absolute",
                           right: "0px",
-                          top: "360px",
-                          height: "90px",
+                          top: "370px",
+                          height: "93px",
                           width: "93px",
                         }}
                       />
@@ -1193,6 +1307,8 @@ const Main: React.FC<Props> = ({ language }) => {
           )}
         </Grid>
       </Container>
+      <Location language={language} />
+      <ConstructionTechnology language={language}></ConstructionTechnology>
     </>
   );
 };

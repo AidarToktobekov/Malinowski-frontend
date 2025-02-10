@@ -17,11 +17,33 @@ const HouseCard: React.FC<IHouseCard> = ({
   setShowHouse,
   allVideo,
   photo,
+  date,
+  kitchen,
+  garage,
+  livingRoom,
+  bedroom1,
+  bedroom2,
+  wardrobe,
+  cabinet,
 }) => {
   return (
     <Grid
       onClick={() => {
-        if (setVideo && video && setShowHouse && allVideo && photo) {
+        if (
+          setVideo &&
+          video &&
+          setShowHouse &&
+          allVideo &&
+          photo &&
+          date &&
+          kitchen &&
+          garage &&
+          livingRoom &&
+          bedroom1 &&
+          bedroom2 &&
+          wardrobe &&
+          cabinet
+        ) {
           setShowHouse({
             houseNumber: houseNumber,
             plot: plot,
@@ -31,6 +53,14 @@ const HouseCard: React.FC<IHouseCard> = ({
             language: language,
             video: allVideo,
             photo: photo,
+            date: date,
+            kitchen: kitchen,
+            garage: garage,
+            livingRoom: livingRoom,
+            bedroom1: bedroom1,
+            bedroom2: bedroom2,
+            wardrobe: wardrobe,
+            cabinet: cabinet,
           });
           setVideo(video);
         }

@@ -23,9 +23,8 @@ import houseA4 from "../../../assets/houseA-4.jpg";
 import houseA5 from "../../../assets/houseA-5.jpg";
 import houseA6 from "../../../assets/houseA-6.jpg";
 import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Close from "@mui/icons-material/Close";
-
 export const Title = styled(Typography)({
   color: "#aeaeae",
   fontSize: "10px",
@@ -61,9 +60,17 @@ const HouseShowing: React.FC<IHouseShowing> = ({
   nowVideo,
   setVideo,
   photo,
+  date,
+  kitchen,
+  garage,
+  livingRoom,
+  bedroom1,
+  bedroom2,
+  wardrobe,
+  cabinet,
 }) => {
   window.scrollTo({
-    top: 800,
+    top: 695,
   });
 
   const [focusAngle, setFocusAngle] = useState("ext1");
@@ -135,8 +142,6 @@ const HouseShowing: React.FC<IHouseShowing> = ({
   };
 
   useEffect(() => {
-    console.log(focusAngle);
-    console.log(nowVideo);
     if (focusAngle === "ext2" && nowVideo === video.exterior1) {
       setVideo(video.exterior2_1);
     } else if (focusAngle === "ext3" && nowVideo === video.exterior2) {
@@ -188,8 +193,290 @@ const HouseShowing: React.FC<IHouseShowing> = ({
     }
   }, [focusAngle]);
 
+  const videoProps = {
+    autoPlay: true,
+    muted: true,
+    preload: "auto",
+    controlsList: "nodownload nofullscreen",
+    disablePictureInPicture: true,
+    playsInline: true,
+  };
+
+  const videoRefs = {
+    [video.back]: useRef<HTMLVideoElement | null>(null),
+    [video.exterior1_1]: useRef<HTMLVideoElement | null>(null),
+    [video.exterior1_2]: useRef<HTMLVideoElement | null>(null),
+    [video.exterior1_3]: useRef<HTMLVideoElement | null>(null),
+    [video.exterior1_4]: useRef<HTMLVideoElement | null>(null),
+    [video.exterior2_1]: useRef<HTMLVideoElement | null>(null),
+    [video.exterior3_1]: useRef<HTMLVideoElement | null>(null),
+    [video.exterior4_1]: useRef<HTMLVideoElement | null>(null),
+    [video.exterior2_2]: useRef<HTMLVideoElement | null>(null),
+    [video.exterior3_2]: useRef<HTMLVideoElement | null>(null),
+    [video.exterior4_2]: useRef<HTMLVideoElement | null>(null),
+    [video.interior1_1]: useRef<HTMLVideoElement | null>(null),
+    [video.interior1_2]: useRef<HTMLVideoElement | null>(null),
+    [video.interior2_1]: useRef<HTMLVideoElement | null>(null),
+    [video.interior2_2]: useRef<HTMLVideoElement | null>(null),
+  };
+
+  useEffect(() => {
+    if (videoRefs[nowVideo]?.current) {
+      videoRefs[nowVideo].current.currentTime = 0;
+      videoRefs[nowVideo].current.play();
+    }
+  }, [nowVideo]);
+  const arrVideo: string[] = [];
+  Object.keys(video).map((key) => {
+    arrVideo.push(video[key as keyof typeof video]);
+  });
   return (
     <>
+      <Grid
+        sx={{
+          position: "fixed",
+          left: 0,
+          top: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: "-1",
+          "&::after": {
+            zIndex: "1",
+            content: '""',
+            opacity: arrVideo.includes(nowVideo) ? "0.6" : "0",
+            position: "absolute",
+            top: "0px",
+            left: "0px",
+            width: "100%",
+            height: "100%",
+            background:
+              "linear-gradient(269.91deg, rgba(0, 0, 0, 0) 11.86%, rgba(0, 0, 0, 0.93) 110.84%)",
+          },
+        }}
+      >
+        <video
+          className="video"
+          style={{
+            display: nowVideo === video.exterior1 ? "block" : "none",
+          }}
+          {...videoProps}
+          src={video.exterior1}
+          loop
+        />
+        <video
+          className="video"
+          style={{
+            display: nowVideo === video.exterior2 ? "block" : "none",
+          }}
+          {...videoProps}
+          src={video.exterior2}
+          loop
+        />
+        <video
+          className="video"
+          style={{
+            display: nowVideo === video.exterior3 ? "block" : "none",
+          }}
+          {...videoProps}
+          src={video.exterior3}
+          loop
+        />
+        <video
+          className="video"
+          style={{
+            display: nowVideo === video.exterior4 ? "block" : "none",
+          }}
+          {...videoProps}
+          src={video.exterior4}
+          loop
+        />
+        <video
+          className="video"
+          style={{
+            display: nowVideo === video.interior1 ? "block" : "none",
+          }}
+          {...videoProps}
+          src={video.interior1}
+          loop
+        />
+        <video
+          className="video"
+          style={{
+            display: nowVideo === video.interior2 ? "block" : "none",
+          }}
+          {...videoProps}
+          src={video.interior2}
+          loop
+        />
+        <video
+          style={{
+            display: nowVideo === video.exterior1_1 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.exterior1_1) setVideo(video.exterior1);
+          }}
+          src={video.exterior1_1}
+          ref={videoRefs[video.exterior1_1]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.exterior1_2 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.exterior1_2) setVideo(video.exterior1);
+          }}
+          src={video.exterior1_2}
+          ref={videoRefs[video.exterior1_2]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.exterior1_3 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.exterior1_3) setVideo(video.exterior1);
+          }}
+          src={video.exterior1_3}
+          ref={videoRefs[video.exterior1_3]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.exterior1_4 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.exterior1_4) setVideo(video.exterior1);
+          }}
+          src={video.exterior1_4}
+          ref={videoRefs[video.exterior1_4]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.exterior2_1 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.exterior2_1) setVideo(video.exterior2);
+          }}
+          src={video.exterior2_1}
+          ref={videoRefs[video.exterior2_1]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.exterior2_2 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.exterior2_2) setVideo(video.exterior2);
+          }}
+          src={video.exterior2_2}
+          ref={videoRefs[video.exterior2_2]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.exterior3_1 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.exterior3_1) setVideo(video.exterior3);
+          }}
+          src={video.exterior3_1}
+          ref={videoRefs[video.exterior3_1]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.exterior3_2 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.exterior3_2) setVideo(video.exterior3);
+          }}
+          src={video.exterior3_2}
+          ref={videoRefs[video.exterior3_2]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.exterior4_1 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.exterior4_1) setVideo(video.exterior4);
+          }}
+          src={video.exterior4_1}
+          ref={videoRefs[video.exterior4_1]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.exterior4_2 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.exterior4_2) setVideo(video.exterior4);
+          }}
+          src={video.exterior4_2}
+          ref={videoRefs[video.exterior4_2]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.interior1_1 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.interior1_1) setVideo(video.interior1);
+          }}
+          src={video.interior1_1}
+          ref={videoRefs[video.interior1_1]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.interior1_2 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.interior1_2) setVideo(video.interior1);
+          }}
+          src={video.interior1_2}
+          ref={videoRefs[video.interior1_2]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.interior2_1 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.interior2_1) setVideo(video.interior2);
+          }}
+          src={video.interior2_1}
+          ref={videoRefs[video.interior2_1]}
+        />
+        <video
+          style={{
+            display: nowVideo === video.interior2_2 ? "block" : "none",
+          }}
+          className="video"
+          {...videoProps}
+          onEnded={() => {
+            if (nowVideo === video.interior2_2) setVideo(video.interior2);
+          }}
+          src={video.interior2_2}
+          ref={videoRefs[video.interior2_2]}
+        />
+      </Grid>
       <Grid
         sx={{
           width: "520px",
@@ -235,6 +522,14 @@ const HouseShowing: React.FC<IHouseShowing> = ({
                   interior1: "",
                   interior2: "",
                 },
+                date: "",
+                kitchen: "",
+                garage: "",
+                livingRoom: "",
+                bedroom1: "",
+                bedroom2: "",
+                wardrobe: "",
+                cabinet: "",
               });
             }}
             sx={{
@@ -325,7 +620,7 @@ const HouseShowing: React.FC<IHouseShowing> = ({
                   },
                 }}
               >
-                3Q/2023
+                {date}
               </Info>
             </Grid>
             <Grid
@@ -346,7 +641,7 @@ const HouseShowing: React.FC<IHouseShowing> = ({
                   {language === "esp" && "Cocina"}
                   {language === "pt" && "Kitchen"}
                 </Title>
-                <Info>7 м²</Info>
+                <Info>{kitchen}</Info>
               </Grid>
               <Grid>
                 <Title>
@@ -355,7 +650,7 @@ const HouseShowing: React.FC<IHouseShowing> = ({
                   {language === "esp" && "Cochera"}
                   {language === "pt" && "Garage"}
                 </Title>
-                <Info>7 м²</Info>
+                <Info>{garage}</Info>
               </Grid>
               <Grid>
                 <Title>
@@ -364,7 +659,7 @@ const HouseShowing: React.FC<IHouseShowing> = ({
                   {language === "esp" && "Sala de estar"}
                   {language === "pt" && "Living room"}
                 </Title>
-                <Info>7 м²</Info>
+                <Info>{livingRoom}</Info>
               </Grid>
               <Grid>
                 <Title>
@@ -373,7 +668,7 @@ const HouseShowing: React.FC<IHouseShowing> = ({
                   {language === "esp" && "Dormitorio 1"}
                   {language === "pt" && "Bedroom 1"}
                 </Title>
-                <Info>7 м²</Info>
+                <Info>{bedroom1}</Info>
               </Grid>
               <Grid>
                 <Title>
@@ -382,7 +677,7 @@ const HouseShowing: React.FC<IHouseShowing> = ({
                   {language === "esp" && "Dormitorio 2"}
                   {language === "pt" && "Bedroom 2"}
                 </Title>
-                <Info>7 м²</Info>
+                <Info>{bedroom2}</Info>
               </Grid>
               <Grid>
                 <Title>
@@ -391,7 +686,7 @@ const HouseShowing: React.FC<IHouseShowing> = ({
                   {language === "esp" && "Armario"}
                   {language === "pt" && "Wardrobe"}
                 </Title>
-                <Info>7 м²</Info>
+                <Info>{wardrobe}</Info>
               </Grid>
               <Grid>
                 <Title>
@@ -400,7 +695,7 @@ const HouseShowing: React.FC<IHouseShowing> = ({
                   {language === "esp" && "Gabinete"}
                   {language === "pt" && "Cabinet"}
                 </Title>
-                <Info>7 м²</Info>
+                <Info>{cabinet}</Info>
               </Grid>
             </Grid>
           </Grid>
