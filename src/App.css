@@ -20,6 +20,15 @@
   }
 }
 
+@keyframes timeLine {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
 .mouse {
   width: 40px;
   height: 40px;
@@ -32,4 +41,29 @@
   animation-iteration-count: infinite;
   animation-fill-mode: none;
   animation-play-state: running;
+}
+
+.form-input {
+  color: #333;
+  padding: 10px 10px 10px 0;
+  border-width: 0 0 1px;
+  border-style: solid;
+  border-color: #d1d1d1;
+  background: transparent;
+  outline: none;
+  font-family: Inter, sans-serif;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 1s;
+  width: 100%;
+  position: relative;
+  &::placeholder {
+    color: #333;
+  }
+  @media (min-width: 1536px) {
+    font-size: 18px;
+  }
+  &:focus {
+    border-color: transparent;
+  }
 }

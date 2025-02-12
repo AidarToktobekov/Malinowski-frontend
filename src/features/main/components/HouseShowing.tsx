@@ -12,7 +12,7 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import { WhiteButton } from "../../../ui/header/Header.tsx";
+import { WhiteButton } from "../../../ui/Header/Header.tsx";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";

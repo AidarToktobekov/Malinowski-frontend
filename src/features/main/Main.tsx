@@ -144,13 +144,14 @@ import houseE from "../../assets/houseE.svg";
 import houseF from "../../assets/houseF.svg";
 import { useEffect, useState } from "react";
 import { Container, styled, Typography } from "@mui/material";
-import { WhiteButton } from "../../ui/header/Header.tsx";
+import { WhiteButton } from "../../ui/Header/Header.tsx";
 import HouseCard from "./components/HouseCard.tsx";
 import { House } from "../../types/malinowskiTypes.ts";
 import HouseShowing from "./components/HouseShowing.tsx";
 import Video from "./components/Video.tsx";
 import Location from "./components/Location.tsx";
 import ConstructionTechnology from "./components/ConstructionTechnology.tsx";
+import ContactUs from "./components/ContactUs.tsx";
 
 export const TitleLocation = styled(Typography)({
   color: "#fff",
@@ -1309,6 +1310,7 @@ const Main: React.FC<Props> = ({ language }) => {
       </Container>
       <Location language={language} />
       <ConstructionTechnology language={language}></ConstructionTechnology>
+      <ContactUs language={language}></ContactUs>
     </>
   );
 };

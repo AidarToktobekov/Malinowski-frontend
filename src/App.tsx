@@ -1,6 +1,6 @@
 import "./App.css";
 import Main from "./features/main/Main.tsx";
-import Header from "./ui/header/Header.tsx";
+import Header from "./ui/Header/Header.tsx";
 import { useState } from "react";
 
 const App = () => {
