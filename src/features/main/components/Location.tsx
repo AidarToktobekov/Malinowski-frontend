@@ -33,6 +33,8 @@ const Location: React.FC<Props> = ({ language }) => {
   return (
     <>
       <Grid
+        component={"section"}
+        id={"location"}
         sx={{
           py: "40px",
           backgroundColor: "#0f0f0f",
@@ -131,7 +133,7 @@ const Location: React.FC<Props> = ({ language }) => {
                   >
                     <g fill="#FFFFFF" fillRule="evenodd">
                       <polygon
-                          fillRule="nonzero"
+                        fillRule="nonzero"
                         points="38.275 23 9.045 23 9.045 25 38.275 25"
                       ></polygon>
                       <polygon

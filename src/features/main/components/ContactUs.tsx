@@ -97,13 +97,22 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const { files } = event.target;
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
     if (files && files[0]) {
-      const file = state.file;
-      file.push(files[0]);
-      setState((prevState) => ({
-        ...prevState,
-        file: file,
-      }));
+      if (files[0].size > MAX_FILE_SIZE) {
+        setOpen({
+          open: true,
+          type: "error",
+          message: `File ${files[0].name} is too large. Maximum size is 5MB.`,
+        });
+      } else {
+        const file = state.file;
+        file.push(files[0]);
+        setState((prevState) => ({
+          ...prevState,
+          file: file,
+        }));
+      }
     }
   };
 
@@ -114,7 +123,7 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             if (entry.target.id === "contactUs") {
-              setBgColor("#eaeaea");
+              setBgColor("#E3E3E3");
             }
           } else {
             if (entry.target.id === "contactUs") {
@@ -162,6 +171,7 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
   return (
     <>
       <Grid
+        component={"section"}
         id={"contactUs"}
         sx={{
           padding: "192px 0",
@@ -403,7 +413,6 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
                               } else {
                                 files.splice(index, 1);
                               }
-                              console.log(files);
                               setState((prev) => ({
                                 ...prev,
                                 file: files,
@@ -433,6 +442,9 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
                     display: "flex",
                     gap: "20px",
                     marginTop: "40px",
+                    "@media (max-width: 640px)": {
+                      flexWrap: "wrap",
+                    },
                   }}
                 >
                   <Button
@@ -450,7 +462,10 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
                       ...styleButton,
                     }}
                   >
-                    Send
+                    {language === "eng" && "Send"}
+                    {language === "pl" && "Wyślij"}
+                    {language === "esp" && "Enviar"}
+                    {language === "pt" && "Enviar"}
                   </Button>
                   <Button
                     sx={{
@@ -460,7 +475,10 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
                       border: "1px solid #333",
                     }}
                   >
-                    Book a call
+                    {language === "eng" && "Book a call"}
+                    {language === "pl" && "Umów rozmowę"}
+                    {language === "esp" && "Reservar una llamada"}
+                    {language === "pt" && "Agendar uma chamada"}
                   </Button>
                 </Grid>
               </Grid>

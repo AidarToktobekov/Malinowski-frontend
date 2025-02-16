@@ -1,4 +1,5 @@
 import Grid from "@mui/material/Grid2";
+import video1 from "../../assets/Malinowskiego_Hero_1-1.mp4";
 import video3 from "../../assets/Malinowskiego_Hero_4-2.mp4";
 import videoHouseA1 from "../../assets/Malinowskiego_HouseA_0-1.mp4";
 import backA from "../../assets/Malinowskiego_HouseA_1-0.mp4";
@@ -142,8 +143,9 @@ import houseC from "../../assets/houseC.svg";
 import houseD from "../../assets/houseD.svg";
 import houseE from "../../assets/houseE.svg";
 import houseF from "../../assets/houseF.svg";
+import videoMobile from "../../assets/Malinowskiego_Hero_mobile_1-1 (1).mp4";
 import { useEffect, useState } from "react";
-import { Container, styled, Typography } from "@mui/material";
+import { Container, Link, styled, Typography } from "@mui/material";
 import { WhiteButton } from "../../ui/Header/Header.tsx";
 import HouseCard from "./components/HouseCard.tsx";
 import { House } from "../../types/malinowskiTypes.ts";
@@ -190,6 +192,20 @@ interface Props {
 }
 const Main: React.FC<Props> = ({ language }) => {
   const [video, setVideo] = useState(video3);
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  useEffect(() => {
+    if (width < 1024) {
+      setVideo(videoMobile);
+    } else {
+      setVideo(video1);
+    }
+  }, [width]);
   const [isHovered, setIsHovered] = useState("");
   const [showHouse, setShowHouse] = useState<House>({
     houseNumber: "",
@@ -246,7 +262,7 @@ const Main: React.FC<Props> = ({ language }) => {
   return (
     <>
       <Grid>
-        <Video video={video} setVideo={setVideo} />
+        <Video width={width} video={video} setVideo={setVideo} />
       </Grid>
       <Container
         maxWidth={false}
@@ -258,6 +274,7 @@ const Main: React.FC<Props> = ({ language }) => {
         }}
       >
         <Grid
+          component={"section"}
           id="section1"
           sx={{
             width: "100%",
@@ -321,15 +338,7 @@ const Main: React.FC<Props> = ({ language }) => {
               gap: "20px",
             }}
           >
-            <WhiteButton
-              variant="contained"
-              onClick={() => {
-                window.scrollTo({
-                  top: 500,
-                  behavior: "smooth",
-                });
-              }}
-            >
+            <WhiteButton to={"section2"} smooth={true} duration={500}>
               {language === "eng" && "Pick a house"}
               {language === "pl" && "Wybierz dom"}
               {language === "esp" && "Elige casa"}
@@ -481,6 +490,7 @@ const Main: React.FC<Props> = ({ language }) => {
           </Grid>
         </Grid>
         <Grid
+          component={"section"}
           id="section2"
           sx={{
             padding: "90px 0 40px",
@@ -1311,6 +1321,122 @@ const Main: React.FC<Props> = ({ language }) => {
       <Location language={language} />
       <ConstructionTechnology language={language}></ConstructionTechnology>
       <ContactUs language={language}></ContactUs>
+      <Grid
+        sx={{
+          backgroundImage: "url(/src/assets/realizations_mobile.jpg)",
+          backgroundSize: "cover",
+          padding: "96px 0",
+          position: "relative",
+          zIndex: "1",
+          "&::after": {
+            content: '""',
+            display: "block",
+            position: "absolute",
+            top: "0px",
+            left: "0px",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            zIndex: "-1",
+          },
+          "@media (min-width: 1024px)": {
+            backgroundImage: "url(/src/assets/realizations_desktop.jpg)",
+          },
+        }}
+      >
+        <Container
+          maxWidth={false}
+          disableGutters
+          sx={{
+            maxWidth: "1350px",
+            px: 2,
+            position: "relative",
+          }}
+        >
+          <Grid
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              "@media (max-width: 1024px)": {
+                display: "block",
+              },
+            }}
+          >
+            <Grid
+              sx={{
+                "@media (min-width: 1024px)": {
+                  width: "66.6667%",
+                },
+              }}
+            >
+              <Typography
+                variant={"h3"}
+                sx={{
+                  fontSize: "42px",
+                  fontWeight: "600",
+                  fontFamily: "Poppins",
+                  color: "#fff",
+                  maxWidth: "512px",
+                  letterSpacing: "-0.03em",
+                  "@media (min-width: 1024px)": {
+                    fontSize: "64px",
+                  },
+                }}
+              >
+                {language === "eng" && "Other projects of the developer"}
+                {language === "pl" && "Inne realizacje developera"}
+                {language === "esp" && "Otros proyectos del promotor"}
+                {language === "pt" && "Outros projetos do desenvolvedor"}
+              </Typography>
+            </Grid>
+            <Grid>
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  fontFamily: "Inter",
+                  color: "#fff",
+                  marginBottom: "16px",
+                  marginTop: "48px",
+                  "@media (min-width: 1024px)": {
+                    fontSize: "18px",
+                    maxWidth: "200px",
+                  },
+                }}
+              >
+                {language === "eng" &&
+                  "Check out other projects on the developer's website"}
+                {language === "pl" &&
+                  "Sprawdź inne projekty na stronie developera"}
+                {language === "esp" &&
+                  "Consulta otros proyectos en el sitio web del promotor"}
+                {language === "pt" &&
+                  "Confira outros projetos no site do desenvolvedor"}
+              </Typography>
+              <Link href={"http://kamienmilowy.com/"}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="147"
+                  height="61"
+                  fill="none"
+                >
+                  <g fill="#EAEAEA" clipPath="url(#kamien_milowy_svg__a)">
+                    <path d="m13.745 39.425-9.19-4.197L0 33.34l5.844 26.332 7.901-9.99V39.425ZM20.65 30.58V.8L.605 31.353l13.77 6.289 6.275-7.062ZM28.861 37.642l13.77-6.287L22.591.804v29.778l6.27 7.06ZM29.452 49.632l7.912 10.001L43.2 33.34l-4.119 1.708-9.629 4.395v10.189ZM15.659 50.318l-7.383 9.334-.764 1.148h28.302l-.321-.482-7.91-10H15.659Z"></path>
+                  </g>
+                  <path
+                    fill="#fff"
+                    d="m67.232 43.032-9.528-7.224V54h3.72V43.224l5.808 4.2 5.808-4.2V54h3.72V35.808l-9.528 7.224ZM81.813 39.744c1.152 0 2.04-.888 2.04-1.944 0-.984-.888-1.872-2.04-1.872-1.056 0-1.968.912-1.968 1.872 0 1.056.912 1.944 1.968 1.944Zm1.728 2.136h-3.408V54h3.408V41.88ZM86.426 36.12V54h3.408V36.12h-3.408ZM98.502 41.616c-3.48 0-6.288 2.832-6.288 6.336 0 3.456 2.808 6.312 6.288 6.312 3.48 0 6.384-2.856 6.384-6.312 0-3.504-2.904-6.336-6.384-6.336Zm0 9.264c-1.56 0-2.832-1.2-2.832-2.928 0-1.704 1.272-2.928 2.832-2.928 1.656 0 2.904 1.224 2.904 2.928 0 1.728-1.248 2.928-2.904 2.928ZM117.382 47.688l-2.784-5.808h-3.264l1.632 3.48-1.104 2.352-2.904-5.832h-3.768l6.576 12.432 2.736-5.712 2.736 5.712 6.024-12.432h-3.336l-2.544 5.808ZM128.907 52.848l-3.24 6.936h3.528l8.328-17.904h-3.384l-3.432 7.512-3.504-7.512h-3.744l5.448 10.968ZM61.424 10.12h-3.72V28h3.72v-4.728l1.992-1.992L70.112 28h5.016l-9.072-9.096 8.784-8.784h-4.968l-8.448 8.448V10.12ZM84.057 15.88v.84c-.528-.576-1.872-1.104-2.952-1.104-3.24 0-5.952 2.832-5.952 6.336 0 3.456 2.64 6.312 5.952 6.312 1.104 0 2.424-.432 2.952-1.128V28h3.408V15.88h-3.408Zm-2.616 9c-1.56 0-2.832-1.2-2.832-2.928 0-1.704 1.272-2.928 2.832-2.928 1.584 0 2.76 1.224 2.76 2.928 0 1.728-1.176 2.928-2.76 2.928ZM102.172 21.952c0-1.608 1.128-2.928 2.616-2.928 1.368 0 2.496 1.08 2.496 2.928V28h3.384v-6.048c0-3.504-1.8-6.336-5.52-6.336-1.248 0-3.168.384-4.32 1.92-.72-1.104-2.328-1.92-4.104-1.92-1.056 0-2.424.432-2.976 1.104v-.84H90.34V28h3.408v-6.048c0-1.608 1.128-2.928 2.4-2.928 1.536 0 2.616.84 2.616 2.928V28h3.408v-6.048ZM115.07 13.744c1.152 0 2.04-.888 2.04-1.944 0-.984-.888-1.872-2.04-1.872-1.056 0-1.968.912-1.968 1.872 0 1.056.912 1.944 1.968 1.944Zm1.728 2.136h-3.408V28h3.408V15.88ZM128.371 23.656c-.552.864-1.584 1.224-2.616 1.224-.36 0-.696-.024-1.008-.144l6.768-4.848c-.744-2.256-3.048-4.272-6.048-4.272-3.48 0-6.288 2.832-6.288 6.336 0 3.456 2.928 6.312 6.576 6.312 2.16 0 4.296-.984 5.328-2.52l-2.712-2.088Zm-5.736-1.704c0-1.704 1.272-2.928 2.832-2.928.648 0 1.2.216 1.68.576l-4.416 3.144a2.757 2.757 0 0 1-.096-.792ZM140.285 9.76l-2.832 4.464h3.192l1.896-2.856-2.256-1.608Zm5.64 12.192c0-3.504-2.304-6.336-5.616-6.336-1.104 0-2.52.336-3.192 1.104v-.84h-3.408V28h3.408v-6.048c0-1.944 1.392-2.928 2.904-2.928 1.392 0 2.52.984 2.52 2.928V28h3.384v-6.048Z"
+                  ></path>
+                  <defs>
+                    <clipPath id="kamien_milowy_svg__a">
+                      <path fill="#fff" d="M0 .8h43.2v60H0z"></path>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </Link>
+            </Grid>
+          </Grid>
+        </Container>
+      </Grid>
     </>
   );
 };

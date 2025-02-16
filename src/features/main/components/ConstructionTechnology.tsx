@@ -9,6 +9,8 @@ const ConstructionTechnology: React.FC<Props> = ({ language }) => {
   return (
     <>
       <Grid
+        component={"section"}
+        id={"technology"}
         sx={{
           padding: "96px 0",
           backgroundColor: "#eaeaea",

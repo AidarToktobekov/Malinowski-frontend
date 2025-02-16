@@ -1,8 +1,9 @@
 import {
   AppBar,
+  Box,
   Button,
   Container,
-  Link,
+  IconButton,
   Popover,
   styled,
   Toolbar,
@@ -12,31 +13,9 @@ import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import * as React from "react";
-
-export const StyledLink = styled(Link)({
-  position: "relative",
-  color: "white",
-  textDecoration: "none",
-  textTransform: "uppercase",
-  fontSize: "14px",
-  cursor: "pointer",
-  padding: "15px 16px",
-  fontWeight: "600",
-  "&::after": {
-    content: '""',
-    position: "absolute",
-    height: "1px",
-    width: "85%",
-    backgroundColor: "rgba(255, 255, 255, 1)",
-    transform: "scaleX(0)",
-    transition: "transform 0.1s ease-in",
-    left: "6%",
-    bottom: "10px",
-  },
-  "&:hover::after": {
-    transform: "scaleX(1)",
-  },
-});
+import SideBarMenu from "./SideBarMenu.tsx";
+import { Link } from "react-scroll";
+import Link2 from "@mui/material/Link";
 
 export const LanguageButton = styled(Button)({
   color: "#000",
@@ -56,10 +35,12 @@ export const LanguageButton = styled(Button)({
   },
 });
 
-export const WhiteButton = styled(Button)({
+export const WhiteButton = styled(Link)({
   borderRadius: "9999px",
   padding: "12px 28px",
   fontFamily: "Poppins",
+  textTransform: "uppercase",
+  cursor: "pointer",
   backgroundColor: "rgba(255, 255, 255, 0.9)",
   fontSize: "14px",
   fontWeight: "600",
@@ -76,11 +57,19 @@ export const WhiteButton = styled(Button)({
 interface Props {
   language: string;
   setLanguage: (lang: string) => void;
+  section: string;
 }
 
-const Header: React.FC<Props> = ({ language, setLanguage }) => {
+const Header: React.FC<Props> = ({ language, setLanguage, section }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [section2, setSection2] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const closeDrawer = () => {
+    setDrawerOpen(false);
+  };
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -147,7 +136,7 @@ const Header: React.FC<Props> = ({ language, setLanguage }) => {
                 alignItems: "center",
               }}
             >
-              <Link
+              <Link2
                 sx={{ width: "125px", display: "block", height: "43px" }}
                 href="/"
               >
@@ -163,36 +152,70 @@ const Header: React.FC<Props> = ({ language, setLanguage }) => {
                     fill="white"
                   />
                 </svg>
-              </Link>
+              </Link2>
               <Grid
                 sx={{
                   display: "flex",
                   alignItems: "center",
+                  "@media (max-width: 1024px)": {
+                    display: "none",
+                  },
                 }}
               >
-                <StyledLink>
+                <Link
+                  to={"section2"}
+                  smooth={true}
+                  duration={500}
+                  className="navigate-link section2"
+                >
                   {language === "eng" && "Segments"}
                   {language === "pl" && "Segmenty"}
                   {language === "esp" && "Segmentos"}
                   {language === "pt" && "Segmentos"}
-                </StyledLink>
-                <StyledLink>
+                </Link>
+                <Link
+                  to={"location"}
+                  smooth={true}
+                  duration={500}
+                  className="navigate-link location"
+                >
                   {language === "eng" && "Map"}
                   {language === "pl" && "Mapa"}
                   {language === "esp" && "Mapa"}
                   {language === "pt" && "Mapa"}
-                </StyledLink>
-                <StyledLink>
+                </Link>
+                <Link
+                  to={"technology"}
+                  smooth={true}
+                  duration={500}
+                  className="navigate-link technology"
+                >
                   {language === "eng" && "Technology"}
                   {language === "pl" && "Technologia"}
                   {language === "esp" && "Tecnología"}
                   {language === "pt" && "Tecnologia"}
-                </StyledLink>
+                </Link>
+                <style>
+                  {`
+                            .section2::after {
+                                  transform: ${section === "section2" ? "scaleX(1)" : "scaleX(0)"};
+                            }
+                            .location::after {
+                                  transform: ${section === "location" ? "scaleX(1)" : "scaleX(0)"};
+                            }
+                            .technology::after {
+                                  transform: ${section === "technology" ? "scaleX(1)" : "scaleX(0)"};
+                            }
+                          `}
+                </style>
               </Grid>
               <Grid
                 sx={{
                   display: "flex",
                   gap: "12px",
+                  "@media (max-width: 1024px)": {
+                    display: "none",
+                  },
                 }}
               >
                 <Button
@@ -268,7 +291,9 @@ const Header: React.FC<Props> = ({ language, setLanguage }) => {
                   </LanguageButton>
                 </Popover>
                 <WhiteButton
-                  variant="contained"
+                  to={"contactUs"}
+                  smooth={true}
+                  duration={500}
                   onClick={() => {
                     window.scrollTo({
                       top: 500,
@@ -282,10 +307,80 @@ const Header: React.FC<Props> = ({ language, setLanguage }) => {
                   {language === "pt" && "Agendar uma chamada"}
                 </WhiteButton>
               </Grid>
+              <Box
+                sx={{
+                  display: "none",
+                  alignItems: "center",
+                  "@media (max-width: 1024px)": {
+                    display: "flex",
+                  },
+                }}
+              >
+                <IconButton color="inherit" edge="end" onClick={toggleDrawer}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="38"
+                    height="38"
+                    fill="none"
+                  >
+                    <g filter="url(#menu_svg__a)">
+                      <circle
+                        cx="19"
+                        cy="19"
+                        r="19"
+                        fill="#fff"
+                        fillOpacity="0.87"
+                      ></circle>
+                      <path
+                        stroke="#333"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M25.427 18.205h-12M25.427 15.538h-12M25.427 20.871h-12M25.427 23.538h-12"
+                      ></path>
+                    </g>
+                    <defs>
+                      <filter
+                        id="menu_svg__a"
+                        width="58"
+                        height="58"
+                        x="-10"
+                        y="-10"
+                        colorInterpolationFilters="sRGB"
+                        filterUnits="userSpaceOnUse"
+                      >
+                        <feFlood
+                          floodOpacity="0"
+                          result="BackgroundImageFix"
+                        ></feFlood>
+                        <feGaussianBlur
+                          in="BackgroundImageFix"
+                          stdDeviation="5"
+                        ></feGaussianBlur>
+                        <feComposite
+                          in2="SourceAlpha"
+                          operator="in"
+                          result="effect1_backgroundBlur_270_7691"
+                        ></feComposite>
+                        <feBlend
+                          in="SourceGraphic"
+                          in2="effect1_backgroundBlur_270_7691"
+                          result="shape"
+                        ></feBlend>
+                      </filter>
+                    </defs>
+                  </svg>
+                </IconButton>
+              </Box>
             </Grid>
           </Container>
         </Toolbar>
       </AppBar>
+      <SideBarMenu
+        language={language}
+        setLanguage={setLanguage}
+        drawerOpen={drawerOpen}
+        closeDrawer={closeDrawer}
+      ></SideBarMenu>
     </>
   );
 };

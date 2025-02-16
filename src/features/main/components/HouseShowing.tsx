@@ -12,7 +12,6 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import { WhiteButton } from "../../../ui/Header/Header.tsx";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -734,12 +733,31 @@ const HouseShowing: React.FC<IHouseShowing> = ({
                 {language === "pt" && "Documentacao_casa.pdf"}
               </Link>
             </Grid>
-            <WhiteButton disabled={sold}>
+            <Button
+              disabled={sold}
+              sx={{
+                borderRadius: "9999px",
+                padding: "12px 28px",
+                fontFamily: "Poppins",
+                textTransform: "uppercase",
+                backgroundColor: "rgba(255, 255, 255, 0.9)",
+                fontSize: "14px",
+                fontWeight: "600",
+                color: "#262626",
+                height: "42px",
+                border: "0.8px solid rgba(229, 231, 235, 1)",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 1)",
+                  boxShadow: "none",
+                },
+              }}
+            >
               {language === "eng" && "Book a call"}
               {language === "pl" && "Umów się"}
               {language === "esp" && "Pedir cita"}
               {language === "pt" && "Agendar uma chamada"}
-            </WhiteButton>
+            </Button>
           </Grid>
         </Grid>
       </Grid>

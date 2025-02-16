@@ -20,14 +20,16 @@ import backC from "../../../assets/Malinowskiego_HouseC_1-0.mp4";
 import backD from "../../../assets/Malinowskiego_HouseD_1-0.mp4";
 import backE from "../../../assets/Malinowskiego_HouseE_1-0.mp4";
 import backF from "../../../assets/Malinowskiego_HouseF_1-0.mp4";
+import videoMobile from "../../../assets/Malinowskiego_Hero_mobile_1-1 (1).mp4";
 import Grid from "@mui/material/Grid2";
 import { useEffect, useRef } from "react";
 
 interface Props {
   video: string;
   setVideo: (video: string) => void;
+  width: number;
 }
-const Video: React.FC<Props> = ({ video, setVideo }) => {
+const Video: React.FC<Props> = ({ video, setVideo, width }) => {
   const videoProps = {
     autoPlay: true,
     muted: true,
@@ -50,31 +52,33 @@ const Video: React.FC<Props> = ({ video, setVideo }) => {
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (entry.target.id === "section1") {
-              setVideo(video4);
-            } else if (entry.target.id === "section2") {
-              setVideo(video2);
+    if (width > 1024) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              if (entry.target.id === "section1") {
+                setVideo(video4);
+              } else if (entry.target.id === "section2") {
+                setVideo(video2);
+              }
             }
-          }
-        });
-      },
-      { threshold: 0.5 },
-    );
+          });
+        },
+        { threshold: 0.5 },
+      );
 
-    const section1 = document.getElementById("section1");
-    const section2 = document.getElementById("section2");
+      const section1 = document.getElementById("section1");
+      const section2 = document.getElementById("section2");
 
-    if (section1) observer.observe(section1);
-    if (section2) observer.observe(section2);
+      if (section1) observer.observe(section1);
+      if (section2) observer.observe(section2);
 
-    return () => {
-      if (section1) observer.unobserve(section1);
-      if (section2) observer.unobserve(section2);
-    };
+      return () => {
+        if (section1) observer.unobserve(section1);
+        if (section2) observer.unobserve(section2);
+      };
+    }
   }, []);
 
   useEffect(() => {
@@ -108,6 +112,15 @@ const Video: React.FC<Props> = ({ video, setVideo }) => {
           },
         }}
       >
+        <video
+          className="video"
+          style={{
+            display: video === videoMobile ? "block" : "none",
+          }}
+          {...videoProps}
+          src={videoMobile}
+          loop
+        />
         <video
           className="video"
           style={{
