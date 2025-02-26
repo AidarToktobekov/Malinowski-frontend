@@ -100,6 +100,8 @@ const Header: React.FC<Props> = ({ language, setLanguage, section }) => {
   return (
     <>
       <AppBar
+        component={"section"}
+        id={"header"}
         position="fixed"
         color="inherit"
         sx={{

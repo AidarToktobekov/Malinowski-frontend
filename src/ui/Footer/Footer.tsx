@@ -28,6 +28,7 @@ const Footer: React.FC<Props> = ({ language }) => {
   return (
     <>
       <Grid
+        component={"section"}
         sx={{
           padding: "48px 0 16px",
           backgroundColor: "#0f0f0f",
@@ -175,7 +176,7 @@ const Footer: React.FC<Props> = ({ language }) => {
                 Created by
               </Typography>
               <Link2 target={"_blank"} href={"https://prographers.com"}>
-                <img src="/src/assets/prog_logo.svg" alt="project logo" />
+                <img src={"/src/assets/prog_logo.svg"} alt="project logo" />
               </Link2>
             </Grid>
           </Grid>

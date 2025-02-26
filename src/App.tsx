@@ -11,14 +11,11 @@ const App = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        let visibleSection = "";
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            visibleSection = entry.target.id;
+            setSection(entry.target.id);
           }
         });
-
-        setSection(visibleSection);
       },
       { threshold: 0.3 },
     );

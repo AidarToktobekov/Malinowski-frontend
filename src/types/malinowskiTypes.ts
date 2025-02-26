@@ -46,7 +46,7 @@ export interface IHouseCard {
 }
 
 export interface House {
-  houseNumber: string;
+  houseNumber: string | null;
   plot: string;
   house: string;
   price: string;

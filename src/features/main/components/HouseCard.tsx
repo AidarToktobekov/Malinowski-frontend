@@ -82,14 +82,15 @@ const HouseCard: React.FC<IHouseCard> = ({
             ? "rgba(255, 255, 255, 0.8)"
             : "rgba(0, 0, 0, 0.3)",
         borderRadius: "8px",
-        transform: "translate(scaleX(1) scaleY(1))",
+        transform: "scaleX(1) scaleY(1)",
         cursor: size === "small" ? "pointer" : "default",
         border: "1px solid #404040",
-        padding: size === "small" ? "12px 28px" : "8px 24px",
         transitionProperty:
           "color, background-color, border-color, text-decoration-color, fill, stroke",
         transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
         transitionDuration: "300ms",
+        display: "flex",
+        overflow: "hidden",
         color:
           size === "small"
             ? isHovered === houseNumber
@@ -100,132 +101,221 @@ const HouseCard: React.FC<IHouseCard> = ({
                 ? "rgba(174, 174, 174, 1)"
                 : "#ffffffde"
             : "#ffffffde",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+
+        "@media (max-width: 1024px)": {
+          maxWidth: "448px",
+          minWidth: "0аа",
+          color: "#888",
+          margin: "0 auto",
+          border: "none",
+          borderRadius: "12px",
+          background: "#1b1b1b",
+        },
       }}
     >
       <Grid
         sx={{
-          borderRight: "1px solid #404040",
-          paddingRight: "24px",
+          width: "140px",
+          height: "140px",
+          "@media (min-width: 1025px)": {
+            display: "none",
+          },
         }}
       >
-        <Typography
-          component="span"
-          sx={{
-            fontSize: size === "small" ? "10px" : "14px",
-            mb: "4px",
-            textTransform: "uppercase",
-            fontFamily: "Inter",
-            display: size === "small" ? "inline-block" : "none",
+        <img
+          style={{
+            display: "block",
+            width: "100%",
+            height: "auto",
           }}
-        >
-          {language === "eng" && "House"}
-          {language === "pl" && "Dom"}
-          {language === "esp" && "Casa"}
-          {language === "pt" && "Casa"}
-        </Typography>
-        <Typography
-          sx={{
-            textTransform: "uppercase",
-            fontFamily: "Inter",
-            fontSize: size === "small" ? "16px" : "34px",
-          }}
-        >
-          {houseNumber}
-        </Typography>
+          src={"src/assets/HouseCardImage.jpg"}
+          alt="HouseCardImage"
+        />
       </Grid>
-      <Grid>
-        <Typography
-          component="span"
+      <Grid
+        sx={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: size === "small" ? "12px 28px" : "8px 24px",
+          "@media (max-width: 1024px)": {
+            padding: "16px",
+            flexWrap: "wrap",
+            width: "unset",
+          },
+        }}
+      >
+        <Grid
           sx={{
-            fontSize: size === "small" ? "10px" : "14px",
-            mb: "4px",
-            textTransform: "uppercase",
-            fontFamily: "Inter",
+            borderRight: "1px solid #404040",
+            paddingRight: "24px",
+            "@media (max-width: 1024px)": {
+              width: "100%",
+              borderRight: "none",
+            },
           }}
         >
-          {language === "eng" && "Plot, M²"}
-          {language === "pl" && "Działka, M²"}
-          {language === "esp" && "Parcela, M²"}
-          {language === "pt" && "Lote, M²"}
-        </Typography>
-        <Typography
-          sx={{
-            textTransform: "uppercase",
-            fontFamily: "Inter",
-          }}
-        >
-          {plot}
-        </Typography>
-      </Grid>
-      <Grid>
-        <Typography
-          component="span"
-          sx={{
-            fontSize: size === "small" ? "10px" : "14px",
-            mb: "4px",
-            textTransform: "uppercase",
-            fontFamily: "Inter",
-          }}
-        >
-          {language === "eng" && "House, M²"}
-          {language === "pl" && "Dom, M²"}
-          {language === "esp" && "Casa, M²"}
-          {language === "pt" && "Casa, M²"}
-        </Typography>
-        <Typography
-          sx={{
-            textTransform: "uppercase",
-            fontFamily: "Inter",
-          }}
-        >
-          {house}
-        </Typography>
-      </Grid>
-      <Grid>
-        <Typography
-          component="span"
-          sx={{
-            fontSize: size === "small" ? "10px" : "14px",
-            mb: "4px",
-            textTransform: "uppercase",
-            fontFamily: "Inter",
-          }}
-        >
-          {language === "eng" && "Price, EUR"}
-          {language === "pl" && "Cena, PLN"}
-          {language === "esp" && "Precio, EUR"}
-          {language === "pt" && "Preço, BRL"}
-        </Typography>
-        {sold ? (
-          <Grid
+          <Typography
+            component="span"
             sx={{
-              width: "80px",
-              display: "flex",
-              justifyContent: "center",
-              fontFamily: "Poppins",
-              fontSize: "12px",
-              p: "3px 8px",
-              borderRadius: "4px",
-              backgroundColor: "#404040",
-              color: "#aeaeae",
+              fontSize: size === "small" ? "10px" : "14px",
+              mb: "4px",
               textTransform: "uppercase",
+              fontFamily: "Inter",
+              display: size === "small" ? "inline-block" : "none",
             }}
           >
-            Sold
-          </Grid>
-        ) : (
+            {language === "eng" && "House"}
+            {language === "pl" && "Dom"}
+            {language === "esp" && "Casa"}
+            {language === "pt" && "Casa"}
+          </Typography>
           <Typography
             sx={{
               textTransform: "uppercase",
               fontFamily: "Inter",
+              fontSize: size === "small" ? "16px" : "34px",
+              "@media (max-width: 1024px)": {
+                fontSize: "20px",
+                fontWeight: "600",
+                color: sold ? "#888" : "#EAEAEA",
+              },
             }}
           >
-            {price}
+            {houseNumber}
           </Typography>
-        )}
+        </Grid>
+        <Grid>
+          <Typography
+            component="span"
+            sx={{
+              fontSize: size === "small" ? "10px" : "14px",
+              mb: "4px",
+              textTransform: "uppercase",
+              fontFamily: "Inter",
+            }}
+          >
+            {language === "eng" && "Plot, M²"}
+            {language === "pl" && "Działka, M²"}
+            {language === "esp" && "Parcela, M²"}
+            {language === "pt" && "Lote, M²"}
+          </Typography>
+          <Typography
+            sx={{
+              textTransform: "uppercase",
+              fontFamily: "Inter",
+              "@media (max-width: 1024px)": {
+                fontSize: "12px",
+                color: sold ? "#888" : "#EAEAEA",
+              },
+            }}
+          >
+            {plot}
+          </Typography>
+        </Grid>
+        <Grid>
+          <Typography
+            component="span"
+            sx={{
+              fontSize: size === "small" ? "10px" : "14px",
+              mb: "4px",
+              textTransform: "uppercase",
+              fontFamily: "Inter",
+            }}
+          >
+            {language === "eng" && "House, M²"}
+            {language === "pl" && "Dom, M²"}
+            {language === "esp" && "Casa, M²"}
+            {language === "pt" && "Casa, M²"}
+          </Typography>
+          <Typography
+            sx={{
+              textTransform: "uppercase",
+              fontFamily: "Inter",
+              "@media (max-width: 1024px)": {
+                fontSize: "12px",
+                color: sold ? "#888" : "#EAEAEA",
+              },
+            }}
+          >
+            {house}
+          </Typography>
+        </Grid>
+        <Grid>
+          <Typography
+            component="span"
+            sx={{
+              fontSize: size === "small" ? "10px" : "14px",
+              mb: "4px",
+              textTransform: "uppercase",
+              fontFamily: "Inter",
+            }}
+          >
+            {language === "eng" && "Price, EUR"}
+            {language === "pl" && "Cena, PLN"}
+            {language === "esp" && "Precio, EUR"}
+            {language === "pt" && "Preço, BRL"}
+          </Typography>
+          {sold ? (
+            <>
+              <Grid
+                sx={{
+                  width: "80px",
+                  display: "flex",
+                  justifyContent: "center",
+                  fontFamily: "Poppins",
+                  fontSize: "12px",
+                  p: "3px 8px",
+                  borderRadius: "4px",
+                  backgroundColor: "#404040",
+                  color: "#aeaeae",
+                  textTransform: "uppercase",
+                  "@media (max-width: 1024px)": {
+                    position: "absolute",
+                    top: "10px",
+                    left: "10px",
+                    width: "42px",
+                    height: "24px",
+                    fontSize: "10px",
+                    p: "5px 8px",
+                    opacity: "0.9",
+                  },
+                }}
+              >
+                Sold
+              </Grid>
+              <Typography
+                sx={{
+                  textTransform: "uppercase",
+                  fontFamily: "Inter",
+                  "@media (min-width: 1024px)": {
+                    display: "none",
+                  },
+                  "@media (max-width: 1024px)": {
+                    fontSize: "12px",
+                    color: sold ? "#888" : "#EAEAEA",
+                  },
+                }}
+              >
+                {price}
+              </Typography>
+            </>
+          ) : (
+            <Typography
+              sx={{
+                textTransform: "uppercase",
+                fontFamily: "Inter",
+                "@media (max-width: 1024px)": {
+                  fontSize: "12px",
+                  color: sold ? "#888" : "#EAEAEA",
+                },
+              }}
+            >
+              {price}
+            </Typography>
+          )}
+        </Grid>
       </Grid>
     </Grid>
   );

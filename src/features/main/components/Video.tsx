@@ -50,7 +50,7 @@ const Video: React.FC<Props> = ({ video, setVideo, width }) => {
     [videoHouseE1]: useRef<HTMLVideoElement | null>(null),
     [videoHouseF1]: useRef<HTMLVideoElement | null>(null),
   };
-
+  // const [lastScrollY, setLastScrollY] = useState(0);
   useEffect(() => {
     if (width > 1024) {
       const observer = new IntersectionObserver(
@@ -60,7 +60,13 @@ const Video: React.FC<Props> = ({ video, setVideo, width }) => {
               if (entry.target.id === "section1") {
                 setVideo(video4);
               } else if (entry.target.id === "section2") {
+                // const currentScrollY = window.scrollY;
+                // const scrollingDown = currentScrollY > lastScrollY;
+                // console.log(currentScrollY, "=currentScrollY ", lastScrollY, "=LastScrollY ", scrollingDown, "=scrollingDown ");
+                // if (scrollingDown){
                 setVideo(video2);
+                // }
+                // setLastScrollY(currentScrollY);
               }
             }
           });

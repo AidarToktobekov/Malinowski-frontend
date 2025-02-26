@@ -208,7 +208,7 @@ const Main: React.FC<Props> = ({ language }) => {
   }, [width]);
   const [isHovered, setIsHovered] = useState("");
   const [showHouse, setShowHouse] = useState<House>({
-    houseNumber: "",
+    houseNumber: null,
     plot: "",
     house: "",
     price: "",
@@ -250,12 +250,30 @@ const Main: React.FC<Props> = ({ language }) => {
 
   useEffect(() => {
     if (showHouse.houseNumber) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+      document.querySelectorAll("section").forEach((section) => {
+        if (
+          window.innerWidth > 1024 &&
+          section.id !== "section2" &&
+          section.id !== "header"
+        ) {
+          section.style.display = "none";
+        } else if (window.innerWidth < 1024 && section.id !== "section2") {
+          section.style.display = "none";
+        }
+      });
+    } else if (showHouse.houseNumber === "") {
+      document.querySelectorAll("section").forEach((section) => {
+        section.style.display = "block";
+        const section2 = document.getElementById("section2");
+        if (section2) {
+          section2.scrollIntoView({ block: "center" });
+        }
+      });
     }
     return () => {
-      document.body.style.overflow = "";
+      document.querySelectorAll("section").forEach((section) => {
+        section.style.display = "block";
+      });
     };
   }, [showHouse]);
 
@@ -264,237 +282,260 @@ const Main: React.FC<Props> = ({ language }) => {
       <Grid>
         <Video width={width} video={video} setVideo={setVideo} />
       </Grid>
-      <Container
-        maxWidth={false}
-        disableGutters
-        sx={{
-          maxWidth: "1350px",
-          px: 2,
-          position: "relative",
-        }}
-      >
-        <Grid
-          component={"section"}
-          id="section1"
+      <Grid component={"section"} id="section1">
+        <Container
+          maxWidth={false}
+          disableGutters
           sx={{
-            width: "100%",
-            padding: "95px 0",
-            lineHeight: "110%",
-            letterSpacing: "-0.03em",
-            "@media (min-width: 1024px)": {
-              width: "40%",
-            },
+            maxWidth: "1350px",
+            px: 2,
           }}
         >
-          <Typography
-            variant="h3"
-            sx={{
-              fontSize: "48px",
-              fontWeight: "600",
-              color: "white",
-              fontFamily: "Poppins",
-              marginBottom: "12.8px",
-
-              "@media (min-width: 1024px)": {
-                fontSize: "64px",
-              },
-            }}
-          >
-            {language === "eng" && "Malinowski housing estate"}
-            {language === "pl" && "Osiedle Malinowskiego"}
-            {language === "esp" && "Urbanización Malinowski"}
-            {language === "pt" && "Condomínio residencial Malinowski"}
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "16px",
-              lineHeight: "140%",
-              letterSpacing: "-0.03em",
-              fontFamily: "Inter",
-              color: "#d1d1d1",
-              maxWidth: "400px",
-
-              "@media (min-width: 1024px)": {
-                fontSize: "18px",
-              },
-            }}
-          >
-            {language === "eng" &&
-              "A quiet place in a great neighborhood. Enjoy unlimited nature and the charms of city life in Józefów."}
-            {language === "pl" &&
-              "Zaciszne miejsce w doskonałym sąsiedztwie. Korzystaj z nieograniczonej przyrody oraz uroków miejskiego życia w Józefowie."}
-            {language === "esp" &&
-              "Un lugar tranquilo en un excelente vecindario. Disfruta de la naturaleza ilimitada y los encantos de la vida urbana en Józefów."}
-            {language === "pt" &&
-              "Um lugar tranquilo em um ótimo bairro. Desfrute natureza ilimitada e os encantos da vida urbana em Józefów."}
-          </Typography>
           <Grid
             sx={{
-              display: "flex",
-              maxWidth: "558px",
-              mt: 4,
-              pb: 7,
-              borderBottom: "1px solid #888",
-              gap: "20px",
+              width: "100%",
+              padding: "95px 0",
+              lineHeight: "110%",
+              letterSpacing: "-0.03em",
+              transitionProperty:
+                "color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter",
+              transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+              transitionDuration: "150ms",
+              "@media (min-width: 1024px)": {
+                width: "40%",
+              },
             }}
           >
-            <WhiteButton to={"section2"} smooth={true} duration={500}>
-              {language === "eng" && "Pick a house"}
-              {language === "pl" && "Wybierz dom"}
-              {language === "esp" && "Elige casa"}
-              {language === "pt" && "Escolha casa"}
-            </WhiteButton>
+            <Grid>
+              <Typography
+                variant="h3"
+                sx={{
+                  fontSize: "42px",
+                  fontWeight: "600",
+                  color: "white",
+                  fontFamily: "Poppins",
+                  marginBottom: "12.8px",
+                  transform: "scaleX(1) scaleY(1)",
+                  transitionProperty: "color transform",
+                  transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+                  transitionDuration: "300ms",
+
+                  "@media (min-width: 1024px)": {
+                    fontSize: "64px",
+                  },
+                }}
+              >
+                {language === "eng" && "Malinowski housing estate"}
+                {language === "pl" && "Osiedle Malinowskiego"}
+                {language === "esp" && "Urbanización Malinowski"}
+                {language === "pt" && "Condomínio residencial Malinowski"}
+              </Typography>
+            </Grid>
+            <Typography
+              sx={{
+                fontSize: "16px",
+                lineHeight: "140%",
+                letterSpacing: "-0.03em",
+                fontFamily: "Inter",
+                color: "#d1d1d1",
+                maxWidth: "400px",
+
+                "@media (min-width: 1024px)": {
+                  fontSize: "18px",
+                },
+              }}
+            >
+              {language === "eng" &&
+                "A quiet place in a great neighborhood. Enjoy unlimited nature and the charms of city life in Józefów."}
+              {language === "pl" &&
+                "Zaciszne miejsce w doskonałym sąsiedztwie. Korzystaj z nieograniczonej przyrody oraz uroków miejskiego życia w Józefowie."}
+              {language === "esp" &&
+                "Un lugar tranquilo en un excelente vecindario. Disfruta de la naturaleza ilimitada y los encantos de la vida urbana en Józefów."}
+              {language === "pt" &&
+                "Um lugar tranquilo em um ótimo bairro. Desfrute natureza ilimitada e os encantos da vida urbana em Józefów."}
+            </Typography>
             <Grid
               sx={{
                 display: "flex",
-                alignItems: "center",
+                maxWidth: "558px",
+                mt: 4,
+                pb: 7,
+                borderBottom: "1px solid #888",
+                gap: "20px",
+              }}
+            >
+              <WhiteButton to={"section2"} smooth={true} duration={500}>
+                {language === "eng" && "Pick a house"}
+                {language === "pl" && "Wybierz dom"}
+                {language === "esp" && "Elige casa"}
+                {language === "pt" && "Escolha casa"}
+              </WhiteButton>
+              <Grid
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Grid
+                  sx={{
+                    display: "flex",
+                    width: "fit-content",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "9999px",
+                    border: "1px solid #888",
+                    backgroundColor: "rgba(0, 0, 0, 0.3)",
+                    p: "12px",
+                  }}
+                >
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    strokeWidth="0"
+                    color="#e5e7eb"
+                    viewBox="0 0 24 24"
+                    className="Header___StyledCiLocationOn-sc-1r2raak-0 jngcSZ"
+                    height="24px"
+                    width="24px"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="Location_On">
+                      <g>
+                        <path d="M12,21.933a1.715,1.715,0,0,1-1.384-.691L5.555,14.5a7.894,7.894,0,1,1,12.885-.009L13.385,21.24A1.717,1.717,0,0,1,12,21.933ZM11.992,3.066A6.81,6.81,0,0,0,7.414,4.815a6.891,6.891,0,0,0-1.05,9.1l5.051,6.727a.725.725,0,0,0,.584.292h0a.732.732,0,0,0,.586-.292l5.044-6.734A6.874,6.874,0,0,0,12.81,3.113,7.277,7.277,0,0,0,11.992,3.066Z"></path>
+                        <path d="M12,12.5A2.5,2.5,0,1,1,14.5,10,2.5,2.5,0,0,1,12,12.5Zm0-4A1.5,1.5,0,1,0,13.5,10,1.5,1.5,0,0,0,12,8.5Z"></path>
+                      </g>
+                    </g>
+                  </svg>
+                </Grid>
+                <Typography
+                  variant={"h5"}
+                  sx={{
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    fontFamily: "Poppins",
+                    textTransform: "uppercase",
+                    ml: "12px",
+                    color: "#fff",
+                    maxWidth: "218px",
+                  }}
+                >
+                  Józefów, <br />
+                  "księdza malinowskiego 38 Poland"
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid
+              sx={{
+                display: "flex",
+                mt: "40px",
+                gap: "48px",
               }}
             >
               <Grid
                 sx={{
-                  display: "flex",
-                  width: "fit-content",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "9999px",
-                  border: "1px solid #888",
-                  backgroundColor: "rgba(0, 0, 0, 0.3)",
-                  p: "12px",
+                  "@media (min-width: 1024px)": {
+                    maxWidth: "130px",
+                  },
                 }}
               >
-                <svg
-                  stroke="currentColor"
-                  fill="currentColor"
-                  strokeWidth="0"
-                  color="#e5e7eb"
-                  viewBox="0 0 24 24"
-                  className="Header___StyledCiLocationOn-sc-1r2raak-0 jngcSZ"
-                  height="24px"
-                  width="24px"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="Location_On">
-                    <g>
-                      <path d="M12,21.933a1.715,1.715,0,0,1-1.384-.691L5.555,14.5a7.894,7.894,0,1,1,12.885-.009L13.385,21.24A1.717,1.717,0,0,1,12,21.933ZM11.992,3.066A6.81,6.81,0,0,0,7.414,4.815a6.891,6.891,0,0,0-1.05,9.1l5.051,6.727a.725.725,0,0,0,.584.292h0a.732.732,0,0,0,.586-.292l5.044-6.734A6.874,6.874,0,0,0,12.81,3.113,7.277,7.277,0,0,0,11.992,3.066Z"></path>
-                      <path d="M12,12.5A2.5,2.5,0,1,1,14.5,10,2.5,2.5,0,0,1,12,12.5Zm0-4A1.5,1.5,0,1,0,13.5,10,1.5,1.5,0,0,0,12,8.5Z"></path>
-                    </g>
-                  </g>
-                </svg>
+                <TitleLocation variant={"h5"}>
+                  <Typography
+                    component={"span"}
+                    sx={{
+                      fontSize: "36px",
+                      fontWeight: "600",
+                      fontFamily: "Poppins",
+                    }}
+                  >
+                    {language === "pl" ? "0,5" : "0.5"}
+                  </Typography>{" "}
+                  km
+                </TitleLocation>
+                <TextLocation>
+                  {language === "eng" && "to shops and bus stops"}
+                  {language === "pl" && "do sklepów i przystanków"}
+                  {language === "esp" && "a tiendas y paradas de autobús"}
+                  {language === "pt" && "para lojas e pontos de ônibus"}
+                </TextLocation>
               </Grid>
-              <Typography
-                variant={"h5"}
+              <Grid
                 sx={{
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  fontFamily: "Poppins",
-                  textTransform: "uppercase",
-                  ml: "12px",
-                  color: "#fff",
-                  maxWidth: "218px",
+                  "@media (min-width: 1024px)": {
+                    maxWidth: "130px",
+                  },
                 }}
               >
-                Józefów, <br />
-                "księdza malinowskiego 38 Poland"
-              </Typography>
+                <TitleLocation variant={"h5"}>
+                  <Typography
+                    component={"span"}
+                    sx={{
+                      fontSize: "36px",
+                      fontWeight: "600",
+                      fontFamily: "Poppins",
+                    }}
+                  >
+                    3
+                  </Typography>{" "}
+                  km
+                </TitleLocation>
+                <TextLocation>
+                  {language === "eng" && "to Warsaw ring road"}
+                  {language === "pl" && "do obwodnicy Warszawy"}
+                  {language === "esp" &&
+                    "a la carretera de circunvalación de Varsovia"}
+                  {language === "pt" && "para o anel viário de Varsóvia"}
+                </TextLocation>
+              </Grid>
+              <Grid
+                sx={{
+                  "@media (min-width: 1024px)": {
+                    maxWidth: "130px",
+                  },
+                }}
+              >
+                <TitleLocation variant={"h5"}>
+                  <Typography
+                    component={"span"}
+                    sx={{
+                      fontSize: "36px",
+                      fontWeight: "600",
+                      fontFamily: "Poppins",
+                    }}
+                  >
+                    {language === "pl" ? "0,3" : "0.3"}
+                  </Typography>{" "}
+                  km
+                </TitleLocation>
+                <TextLocation>
+                  {language === "eng" && "to forests"}
+                  {language === "pl" && "do terenów leśnych"}
+                  {language === "esp" && "a bosques"}
+                  {language === "pt" && "para florestas"}
+                </TextLocation>
+              </Grid>
             </Grid>
           </Grid>
-          <Grid
-            sx={{
-              display: "flex",
-              mt: "40px",
-              gap: "48px",
-            }}
-          >
-            <Grid
-              sx={{
-                "@media (min-width: 1024px)": {
-                  maxWidth: "130px",
-                },
-              }}
-            >
-              <TitleLocation variant={"h5"}>
-                <Typography
-                  component={"span"}
-                  sx={{
-                    fontSize: "36px",
-                    fontWeight: "600",
-                    fontFamily: "Poppins",
-                  }}
-                >
-                  {language === "pl" ? "0,5" : "0.5"}
-                </Typography>{" "}
-                km
-              </TitleLocation>
-              <TextLocation>
-                {language === "eng" && "to shops and bus stops"}
-                {language === "pl" && "do sklepów i przystanków"}
-                {language === "esp" && "a tiendas y paradas de autobús"}
-                {language === "pt" && "para lojas e pontos de ônibus"}
-              </TextLocation>
-            </Grid>
-            <Grid
-              sx={{
-                "@media (min-width: 1024px)": {
-                  maxWidth: "130px",
-                },
-              }}
-            >
-              <TitleLocation variant={"h5"}>
-                <Typography
-                  component={"span"}
-                  sx={{
-                    fontSize: "36px",
-                    fontWeight: "600",
-                    fontFamily: "Poppins",
-                  }}
-                >
-                  3
-                </Typography>{" "}
-                km
-              </TitleLocation>
-              <TextLocation>
-                {language === "eng" && "to Warsaw ring road"}
-                {language === "pl" && "do obwodnicy Warszawy"}
-                {language === "esp" &&
-                  "a la carretera de circunvalación de Varsovia"}
-                {language === "pt" && "para o anel viário de Varsóvia"}
-              </TextLocation>
-            </Grid>
-            <Grid
-              sx={{
-                "@media (min-width: 1024px)": {
-                  maxWidth: "130px",
-                },
-              }}
-            >
-              <TitleLocation variant={"h5"}>
-                <Typography
-                  component={"span"}
-                  sx={{
-                    fontSize: "36px",
-                    fontWeight: "600",
-                    fontFamily: "Poppins",
-                  }}
-                >
-                  {language === "pl" ? "0,3" : "0.3"}
-                </Typography>{" "}
-                km
-              </TitleLocation>
-              <TextLocation>
-                {language === "eng" && "to forests"}
-                {language === "pl" && "do terenów leśnych"}
-                {language === "esp" && "a bosques"}
-                {language === "pt" && "para florestas"}
-              </TextLocation>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          component={"section"}
-          id="section2"
+        </Container>
+      </Grid>
+      <Grid
+        component={"section"}
+        id="section2"
+        sx={{
+          padding: "90px 0 40px",
+          height: showHouse.houseNumber ? "100vh" : "none",
+          "@media (max-width: 1024px)": {
+            backgroundColor: "#0f0f0f",
+            padding: "16px 0",
+          },
+        }}
+      >
+        <Container
+          maxWidth={false}
+          disableGutters
           sx={{
-            padding: "90px 0 40px",
-            height: showHouse.houseNumber ? "100vh" : "none",
+            maxWidth: "1350px",
+            height: "100%",
+            px: 2,
           }}
         >
           {showHouse.houseNumber ? (
@@ -524,14 +565,13 @@ const Main: React.FC<Props> = ({ language }) => {
               <Typography
                 variant="h3"
                 sx={{
-                  fontSize: "48px",
+                  fontSize: "64px",
                   fontWeight: "600",
                   color: "white",
                   fontFamily: "Poppins",
                   marginBottom: "24px",
-
-                  "@media (min-width: 1024px)": {
-                    fontSize: "64px",
+                  "@media (max-width: 1024px)": {
+                    display: "none",
                   },
                 }}
               >
@@ -539,6 +579,25 @@ const Main: React.FC<Props> = ({ language }) => {
                 {language === "pl" && "Wybierz swój dom"}
                 {language === "esp" && "Selecciona tu casa"}
                 {language === "pt" && "Selecione sua casa"}
+              </Typography>
+              <Typography
+                variant="h3"
+                sx={{
+                  fontSize: "42px",
+                  fontWeight: "600",
+                  color: "white",
+                  fontFamily: "Poppins",
+                  margin: "48px 0",
+
+                  "@media (min-width: 1025px)": {
+                    display: "none",
+                  },
+                }}
+              >
+                {language === "eng" && "Choose your house"}
+                {language === "pl" && "Wybierz swój dom"}
+                {language === "esp" && "Elige tu casa"}
+                {language === "pt" && "Escolha sua casa"}
               </Typography>
               <Grid
                 sx={{
@@ -552,6 +611,13 @@ const Main: React.FC<Props> = ({ language }) => {
                     display: "flex",
                     flexDirection: "column",
                     gap: "4px",
+                    "@media (max-width: 1024px)": {
+                      width: "100%",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                      justifyContent: "space-between",
+                      gap: "12px",
+                    },
                   }}
                 >
                   <HouseCard
@@ -838,6 +904,9 @@ const Main: React.FC<Props> = ({ language }) => {
                     borderRadius: "8px",
                     background: "rgba(0, 0, 0, 0.3)",
                     border: "0.5px solid #404040",
+                    "@media (max-width: 1024px)": {
+                      display: "none",
+                    },
                   }}
                 >
                   <Grid
@@ -1316,12 +1385,13 @@ const Main: React.FC<Props> = ({ language }) => {
               </Grid>
             </>
           )}
-        </Grid>
-      </Container>
+        </Container>
+      </Grid>
       <Location language={language} />
       <ConstructionTechnology language={language}></ConstructionTechnology>
       <ContactUs language={language}></ContactUs>
       <Grid
+        component="section"
         sx={{
           backgroundImage: "url(/src/assets/realizations_mobile.jpg)",
           backgroundSize: "cover",
