@@ -5,6 +5,7 @@
 .video {
   position: absolute;
   top: 50%;
+  height: 100%;
   transform: translate(0, -50%);
   width: 100%;
   transition: 125ms ease-in;
@@ -73,7 +74,7 @@
   color: white;
   text-decoration: none;
   text-transform: uppercase;
-  font-family: Poppins, sans-sarif;
+  font-family: Poppins, sans-sarif, serif;
   font-size: 14px;
   cursor: pointer;
   padding: 15px 16px;

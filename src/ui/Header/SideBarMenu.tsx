@@ -186,7 +186,7 @@ const SideBarMenu: React.FC<Props> = ({
             smooth={true}
             duration={500}
             sx={{
-              width: "100%",
+              width: "calc(-110px + 100%)",
               marginRight: "20px",
               backgroundColor: "#333",
               color: "#fff",

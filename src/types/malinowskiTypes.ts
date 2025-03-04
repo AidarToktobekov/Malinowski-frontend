@@ -13,6 +13,7 @@ export interface IHouseCard {
   setShowHouse?: (house: House) => void;
   photo?: string[];
   allVideo?: {
+    come: string;
     back: string;
     exterior1_1: string;
     exterior1_2: string;
@@ -53,6 +54,7 @@ export interface House {
   sold: boolean;
   language: string;
   video: {
+    come: string;
     back: string;
     exterior1_1: string;
     exterior1_2: string;
@@ -95,6 +97,7 @@ export interface IHouseShowing {
   language: string;
   setShowHouse: (house: House) => void;
   video: {
+    come: string;
     back: string;
     exterior1_1: string;
     exterior1_2: string;

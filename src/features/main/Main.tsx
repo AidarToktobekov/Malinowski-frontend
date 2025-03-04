@@ -200,7 +200,7 @@ const Main: React.FC<Props> = ({ language }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   useEffect(() => {
-    if (width < 1024) {
+    if (width < 1025) {
       setVideo(videoMobile);
     } else {
       setVideo(video1);
@@ -216,6 +216,7 @@ const Main: React.FC<Props> = ({ language }) => {
     language: "",
     photo: [],
     video: {
+      come: "",
       back: "",
       exterior1_1: "",
       exterior1_2: "",
@@ -257,7 +258,7 @@ const Main: React.FC<Props> = ({ language }) => {
           section.id !== "header"
         ) {
           section.style.display = "none";
-        } else if (window.innerWidth < 1024 && section.id !== "section2") {
+        } else if (window.innerWidth < 1025 && section.id !== "section2") {
           section.style.display = "none";
         }
       });
@@ -357,6 +358,7 @@ const Main: React.FC<Props> = ({ language }) => {
             <Grid
               sx={{
                 display: "flex",
+                flexWrap: "wrap",
                 maxWidth: "558px",
                 mt: 4,
                 pb: 7,
@@ -522,10 +524,12 @@ const Main: React.FC<Props> = ({ language }) => {
         id="section2"
         sx={{
           padding: "90px 0 40px",
-          height: showHouse.houseNumber ? "100vh" : "none",
+          height: showHouse.houseNumber ? "100vh" : "unset",
           "@media (max-width: 1024px)": {
             backgroundColor: "#0f0f0f",
             padding: "16px 0",
+            height: "auto",
+            minHeight: "100vh",
           },
         }}
       >
@@ -635,6 +639,7 @@ const Main: React.FC<Props> = ({ language }) => {
                     setShowHouse={setShowHouse}
                     photo={[room1, room2, room3]}
                     allVideo={{
+                      come: videoHouseA1,
                       back: backA,
                       exterior1_1: exteriorA1_1,
                       exterior1_2: exteriorA1_2,
@@ -681,6 +686,7 @@ const Main: React.FC<Props> = ({ language }) => {
                     setShowHouse={setShowHouse}
                     photo={[room2, room1, room3]}
                     allVideo={{
+                      come: videoHouseB1,
                       back: backB,
                       exterior1_1: exteriorB1_1,
                       exterior1_2: exteriorB1_2,
@@ -727,6 +733,7 @@ const Main: React.FC<Props> = ({ language }) => {
                     setShowHouse={setShowHouse}
                     photo={[room1, room2, room3]}
                     allVideo={{
+                      come: videoHouseC1,
                       back: backC,
                       exterior1_1: exteriorC1_1,
                       exterior1_2: exteriorC1_2,
@@ -773,6 +780,7 @@ const Main: React.FC<Props> = ({ language }) => {
                     setShowHouse={setShowHouse}
                     photo={[room1, room2, room3]}
                     allVideo={{
+                      come: videoHouseD1,
                       back: backD,
                       exterior1_1: exteriorD1_1,
                       exterior1_2: exteriorD1_2,
@@ -819,6 +827,7 @@ const Main: React.FC<Props> = ({ language }) => {
                     setShowHouse={setShowHouse}
                     photo={[room1, room2, room3]}
                     allVideo={{
+                      come: videoHouseE1,
                       back: backE,
                       exterior1_1: exteriorE1_1,
                       exterior1_2: exteriorE1_2,
@@ -865,6 +874,7 @@ const Main: React.FC<Props> = ({ language }) => {
                     setShowHouse={setShowHouse}
                     photo={[room1, room2, room3]}
                     allVideo={{
+                      come: videoHouseF1,
                       back: backF,
                       exterior1_1: exteriorF1_1,
                       exterior1_2: exteriorF1_2,
@@ -939,6 +949,7 @@ const Main: React.FC<Props> = ({ language }) => {
                           language: language,
                           photo: [room2, room1, room3],
                           video: {
+                            come: videoHouseA1,
                             back: backA,
                             exterior1_1: exteriorA1_1,
                             exterior1_2: exteriorA1_2,
@@ -1039,6 +1050,7 @@ const Main: React.FC<Props> = ({ language }) => {
                           language: language,
                           photo: [room2, room1, room3],
                           video: {
+                            come: videoHouseB1,
                             back: backB,
                             exterior1_1: exteriorB1_1,
                             exterior1_2: exteriorB1_2,
@@ -1139,6 +1151,7 @@ const Main: React.FC<Props> = ({ language }) => {
                           language: language,
                           photo: [room2, room1, room3],
                           video: {
+                            come: videoHouseC1,
                             back: backC,
                             exterior1_1: exteriorC1_1,
                             exterior1_2: exteriorC1_2,
@@ -1202,6 +1215,7 @@ const Main: React.FC<Props> = ({ language }) => {
                           language: language,
                           photo: [room2, room1, room3],
                           video: {
+                            come: videoHouseD1,
                             back: backD,
                             exterior1_1: exteriorD1_1,
                             exterior1_2: exteriorD1_2,
@@ -1265,6 +1279,7 @@ const Main: React.FC<Props> = ({ language }) => {
                           language: language,
                           photo: [room2, room1, room3],
                           video: {
+                            come: videoHouseE1,
                             back: backE,
                             exterior1_1: exteriorE1_1,
                             exterior1_2: exteriorE1_2,
@@ -1328,6 +1343,7 @@ const Main: React.FC<Props> = ({ language }) => {
                           language: language,
                           photo: [room2, room1, room3],
                           video: {
+                            come: videoHouseF1,
                             back: backF,
                             exterior1_1: exteriorF1_1,
                             exterior1_2: exteriorF1_2,

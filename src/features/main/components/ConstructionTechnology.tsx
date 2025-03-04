@@ -28,7 +28,7 @@ const ConstructionTechnology: React.FC<Props> = ({ language }) => {
           <Typography
             variant="h3"
             sx={{
-              fontSize: "48px",
+              fontSize: "42px",
               fontWeight: "600",
               fontFamily: "Poppins",
               padding: "0 0 15px",

@@ -146,10 +146,16 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
 
   const linkStyle = {
     fontFamily: "Poppins",
-    fontSize: "28px",
+    fontSize: "16px",
     fontWeight: "600",
     color: "#333",
     textDecoration: "none",
+    "@media (min-width: 400px)": {
+      fontSize: "20px",
+    },
+    "@media (min-width: 768px)": {
+      fontSize: "28px",
+    },
     "@media (min-width: 1536px)": {
       fontSize: "34px",
     },
@@ -178,6 +184,9 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
           backgroundColor: bgColor,
           color: bgColor === "#0f0f0f" ? "#eaeaea" : "#0f0f0f",
           transition: "2s",
+          "@media(max-width: 768px)": {
+            padding: "128px 0",
+          },
         }}
       >
         <Container
@@ -237,7 +246,7 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
           <Typography
             variant="h3"
             sx={{
-              fontSize: "48px",
+              fontSize: "42px",
               fontWeight: "600",
               fontFamily: "Poppins",
               marginBottom: "40px",
@@ -257,7 +266,11 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
             onSubmit={onSubmit}
             sx={{
               display: "flex",
+              gap: "60px",
               flexWrap: "wrap",
+              "@media (min-width: 1024px)": {
+                gap: "0",
+              },
             }}
           >
             <Grid
@@ -481,6 +494,29 @@ const ContactUsPage: React.FC<Props> = ({ language }) => {
                     {language === "pt" && "Agendar uma chamada"}
                   </Button>
                 </Grid>
+                <Typography
+                  sx={{
+                    marginTop: "32px",
+                    display: "block",
+                    color: "#333",
+                    fontFamily: "Inter",
+                    fontSize: "10px",
+                    fontWeight: "300",
+
+                    "@media (min-width: 768px)": {
+                      display: "none",
+                    },
+                  }}
+                >
+                  {language === "eng" &&
+                    "I agree that my data in this form will be sent to contact@prographers.com and will be read by human beings. We will answer you as soon as possible. If you sent this form by mistake or want to remove your data, you can let us know by sending an email to contact@prographers.com. We will never send you any spam or share your data with third parties."}
+                  {language === "pl" &&
+                    "Zgadzam się, aby moje dane z tego formularza zostały wysłane do kontakt@kamienmilowy.pl i zostały przeczytane przez ludzi. Odpowiemy Ci jak najszybciej. Jeśli wysłałeś ten formularz przez pomyłkę lub chcesz usunąć swoje dane, możesz nas o tym poinformować, wysyłając e-mail na adres contact@prographers.com. Nigdy nie wyślemy Ci spamu ani nie udostępnimy Twoich danych osobowych osobom trzecim."}
+                  {language === "esp" &&
+                    "Acepto que mis datos en este formulario se enviarán a contact@prographers.com y serán leídos por seres humanos. Te responderemos lo más pronto posible. Si enviaste este formulario por error o quieres eliminar tus datos, puedes informarnos enviando un correo electrónico a contact@prographers.com. Nunca te enviaremos spam ni compartiremos tus datos con terceros."}
+                  {language === "pt" &&
+                    "Concordo que meus dados neste formulário sejam enviados para contact@prographers.com e serão lidos por seres humanos. Responderemos o mais breve possível. Se você enviou este formulário por engano ou deseja para remover seus dados, você pode nos avisar enviando um e-mail para contact@prographers.com. Nunca lhe enviaremos spam ou compartilharemos seus dados com terceiros."}
+                </Typography>
               </Grid>
             </Grid>
             <Grid

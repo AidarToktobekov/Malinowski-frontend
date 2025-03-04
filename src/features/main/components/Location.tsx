@@ -26,6 +26,9 @@ export const LocationBlock = styled(Grid)({
     maxWidth: "300px",
     alignItems: "start",
   },
+  "@media (max-width: 700px)": {
+    maxWidth: "150px",
+  },
 });
 const Location: React.FC<Props> = ({ language }) => {
   const [mapPlaceholderOpacity, setMapPlaceholderOpacity] = useState(true);
@@ -62,7 +65,7 @@ const Location: React.FC<Props> = ({ language }) => {
             <Typography
               variant="h3"
               sx={{
-                fontSize: "48px",
+                fontSize: "42px",
                 fontWeight: "600",
                 color: "white",
                 fontFamily: "Poppins",
